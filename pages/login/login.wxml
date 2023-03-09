@@ -1,0 +1,15 @@
+<!--pages/logIn/logIn.wxml-->
+<view class="login-container">
+  <image class="logo" src="/resource/images/logo.svg" mode="aspectFill" />
+  <view class="container-item">
+    <view class="item-title">用户名</view>
+    <input class="login-input" placeholder="请输入你的邮箱" model:value="{{phone}}" />
+
+  </view>
+  <view class="container-item code-item">
+    <view class="item-title code-title">验证码</view>
+    <input class="login-input code-input" password="true" type="password" placeholder="请输入您的验证码" model:value="{{code}}" />
+    <button class="btn-login btn-code" hover-class="btn-login-hover" bindtap="getCode">获取验证码</button>
+  </view>
+  <button class="btn-login" hover-class="btn-login-hover" bindtap="formSubmit">登录</button>
+</view>

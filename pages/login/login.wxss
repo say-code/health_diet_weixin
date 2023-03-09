@@ -1,0 +1,72 @@
+.login-container {
+  padding: 50rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  margin: 50rpx;
+  width: 354rpx;
+  height: 80rpx;
+  align-self: center;
+}
+
+.container-item {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50rpx;
+}
+
+.item-title {
+  color: #002251;
+  font-size: 32rpx;
+}
+
+.login-input {
+  margin-top: 20rpx;
+  padding: 30rpx 20rpx;
+  background-color: #E3EAF8;
+  opacity: 0.5;
+  border-radius: 10rpx;
+}
+
+.btn-login {
+  background-color: #1890FF;
+  width: 100% !important;
+  color: white;
+  padding: 15rpx;
+  border-radius: 15rpx;
+  margin-top: 100rpx;
+}
+
+.code-item {
+  justify-content: space-around;
+  flex-direction: row;
+
+}
+
+.code-title {
+  padding-top: 42rpx;
+  /* margin-top: ; */
+  flex: 2;
+}
+
+.code-input {
+  flex: 5;
+  /* margin-right: 55rpx; */
+  box-sizing: content-box;
+}
+
+.btn-code {
+  margin-top: 28rpx;
+  margin-left: 25rpx;
+  height: 88rpx;
+  flex: 2;
+  /* box-sizing: content-box; */
+  font-size: 25rpx;
+  opacity: 0.7;
+}
+
+.btn-login-hover {
+  opacity: 0.5;
+}
