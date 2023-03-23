@@ -1,5 +1,5 @@
-import { SizeEnum } from '../common/common';
 import { LoadingProps } from '../loading/index';
+import { SizeEnum } from '../common/common';
 export interface TdButtonProps {
     block?: {
         type: BooleanConstructor;
@@ -26,12 +26,8 @@ export interface TdButtonProps {
         value?: boolean;
     };
     icon?: {
-        type: StringConstructor;
-        value?: string;
-    };
-    iconProps?: {
-        type: ObjectConstructor;
-        value?: object;
+        type: null;
+        value?: string | object;
     };
     loading?: {
         type: BooleanConstructor;

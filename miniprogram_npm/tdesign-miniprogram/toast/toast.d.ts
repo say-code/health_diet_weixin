@@ -20,6 +20,7 @@ export default class Toast extends SuperComponent {
         show(options: ToastOptionsType): void;
         hide(): void;
         destroyed(): void;
+        loop(): void;
     };
 }
 export {};

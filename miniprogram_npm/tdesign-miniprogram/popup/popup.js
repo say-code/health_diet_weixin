@@ -7,7 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
-import { classNames } from '../common/utils';
 import transition from '../mixins/transition';
 delete props.visible;
 const { prefix } = config;
@@ -15,7 +14,7 @@ const name = `${prefix}-popup`;
 let Popup = class Popup extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = ['t-class', 't-class-content'];
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-content`];
         this.behaviors = [transition()];
         this.options = {
             multipleSlots: true,
@@ -24,23 +23,9 @@ let Popup = class Popup extends SuperComponent {
         this.data = {
             prefix,
             classPrefix: name,
-            className: name,
-        };
-        this.lifetimes = {
-            attached() {
-                this.setClass();
-            },
         };
         this.methods = {
-            setClass() {
-                const { placement, showOverlay } = this.properties;
-                const className = classNames(name, `${name}--${placement}`, {
-                    [`${name}--overlay-transparent`]: !showOverlay,
-                });
-                this.setData({
-                    className,
-                });
-            },
+            onStopPropagation() { },
             handleOverlayClick() {
                 const { closeOnOverlayClick } = this.properties;
                 if (closeOnOverlayClick) {

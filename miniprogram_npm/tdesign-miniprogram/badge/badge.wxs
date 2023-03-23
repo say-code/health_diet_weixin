@@ -26,17 +26,17 @@ var getBadgeStyles = function (props) {
     styleStr += 'background:' + props.color + ';';
   }
   if (props.offset[0]) {
-    styleStr += 'top:' + (hasUnit(props.offset[0].toString()) ? props.offset[0] : props.offset[0] + 'px') + ';';
+    styleStr += 'right:' + (hasUnit(props.offset[0].toString()) ? props.offset[0] : props.offset[0] + 'px') + ';';
   }
   if (props.offset[1]) {
-    styleStr += 'right:' + (hasUnit(props.offset[1].toString()) ? props.offset[1] : props.offset[1] + 'px') + ';';
+    styleStr += 'top:' + (hasUnit(props.offset[1].toString()) ? props.offset[1] : props.offset[1] + 'px') + ';';
   }
   return styleStr;
 };
 
 var getBadgeOuterClass = function (props) {
   var baseClass = 't-badge';
-  var classNames = [baseClass, props.shape === 'ribbon' ? baseClass + '__ribbon--outer' : ''];
+  var classNames = [baseClass, props.shape === 'ribbon' ? baseClass + '__ribbon-outer' : ''];
   return classNames.join(' ');
 };
 
@@ -45,7 +45,7 @@ var getBadgeInnerClass = function (props) {
   var classNames = [
     baseClass + '--basic',
     props.dot ? baseClass + '--dot' : '',
-    props.size === 'small' ? baseClass + '--small' : '',
+    baseClass + '--' + props.size,
     baseClass + '--' + props.shape,
     !props.dot && props.count ? baseClass + '--count' : '',
   ];
@@ -59,6 +59,7 @@ var isShowBadge = function (props) {
   if (!props.showZero && !isNaN(props.count) && parseInt(props.count) === 0) {
     return false;
   }
+  if (props.count == null) return false;
   return true;
 };
 

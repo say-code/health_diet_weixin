@@ -1,8 +1,7 @@
+/// <reference types="miniprogram-api-typings" />
 import { SuperComponent, RelationsOptions } from '../common/src/index';
 export default class Avatar extends SuperComponent {
-    options: {
-        multipleSlots: boolean;
-    };
+    options: WechatMiniprogram.Component.ComponentOptions;
     externalClasses: string[];
     properties: import("./type").TdAvatarProps;
     data: {
@@ -10,16 +9,15 @@ export default class Avatar extends SuperComponent {
         classPrefix: string;
         isShow: boolean;
         zIndex: number;
-        isChild: boolean;
-        borderSize: string;
+        bordered: boolean;
     };
     relations: RelationsOptions;
-    methods: {
-        updateIsChild(isChild: any): void;
-        updateShow(): void;
-        updateSize(size: any): void;
-        updateCascading(zIndex: any): void;
-        updateBorder(borderSize: any): void;
+    observers: {
+        icon(icon: any): void;
     };
-    onLoadError(e: any): void;
+    methods: {
+        hide(): void;
+        updateCascading(zIndex: any): void;
+        onLoadError(e: WechatMiniprogram.CustomEvent): void;
+    };
 }

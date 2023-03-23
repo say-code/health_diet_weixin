@@ -2,24 +2,28 @@ import { SuperComponent, RelationsOptions } from '../common/src/index';
 export default class Radio extends SuperComponent {
     externalClasses: string[];
     behaviors: string[];
-    parent: any;
     relations: RelationsOptions;
     options: {
         multipleSlots: boolean;
     };
     lifetimes: {
         attached(): void;
+        ready(): void;
     };
     properties: {
         borderless: {
             type: BooleanConstructor;
             value: boolean;
         };
-        align?: {
+        placement?: {
             type: StringConstructor;
             value?: "left" | "right";
         };
         allowUncheck?: {
+            type: BooleanConstructor;
+            value?: boolean;
+        };
+        block?: {
             type: BooleanConstructor;
             value?: boolean;
         };
@@ -31,10 +35,6 @@ export default class Radio extends SuperComponent {
             type: BooleanConstructor;
             value?: boolean;
         };
-        color?: {
-            type: StringConstructor;
-            value?: string;
-        };
         content?: {
             type: StringConstructor;
             value?: string;
@@ -42,6 +42,10 @@ export default class Radio extends SuperComponent {
         contentDisabled?: {
             type: BooleanConstructor;
             value?: boolean;
+        };
+        style?: {
+            type: StringConstructor;
+            value?: string;
         };
         disabled?: {
             type: BooleanConstructor;
@@ -53,7 +57,7 @@ export default class Radio extends SuperComponent {
         };
         icon?: {
             type: null;
-            value?: string[] | "fill-circle" | "stroke-line";
+            value?: string[] | "circle" | "line";
         };
         label?: {
             type: StringConstructor;
@@ -80,16 +84,14 @@ export default class Radio extends SuperComponent {
         key: string;
         event: string;
     }[];
-    observers: {
-        checked(isChecked: Boolean): void;
-    };
     data: {
         prefix: string;
-        active: boolean;
         classPrefix: string;
         customIcon: boolean;
+        slotIcon: boolean;
         optionLinked: boolean;
         iconVal: any[];
+        _placement: string;
     };
     methods: {
         handleTap(e: any): void;

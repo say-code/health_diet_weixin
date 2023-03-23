@@ -7,8 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import props from './props';
 import config from '../common/config';
+import { calcIcon } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-result`;
+const THEME_ICON = {
+    default: 'error-circle',
+    success: 'check-circle',
+    warning: 'error-circle',
+    error: 'close-circle',
+};
 let default_1 = class extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -28,26 +35,20 @@ let default_1 = class extends SuperComponent {
         };
         this.lifetimes = {
             ready() {
-                this.setIcon();
+                this.initIcon();
+            },
+        };
+        this.observers = {
+            'icon, theme'() {
+                this.initIcon();
             },
         };
         this.methods = {
-            setIcon() {
+            initIcon() {
                 const { icon, theme } = this.properties;
-                if (icon) {
-                    this.setData({
-                        iconName: icon !== 'null' ? `${icon}` : '',
-                    });
-                }
-                else {
-                    const themeResult = {
-                        default: 'error-circle',
-                        success: 'check-circle',
-                        warning: 'error-circle',
-                        error: 'close-circle',
-                    };
-                    this.setData({ iconName: themeResult[theme] });
-                }
+                this.setData({
+                    _icon: calcIcon(icon, THEME_ICON[theme]),
+                });
             },
         };
     }

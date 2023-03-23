@@ -1,3 +1,5 @@
+import { prefix } from './config';
+const systemInfo = wx.getSystemInfoSync();
 export const debounce = function (func, wait = 500) {
     let timerId;
     return function (...rest) {
@@ -7,6 +9,30 @@ export const debounce = function (func, wait = 500) {
         timerId = setTimeout(() => {
             func.apply(this, rest);
         }, wait);
+    };
+};
+export const throttle = (func, wait = 100, options = null) => {
+    let previous = 0;
+    let timerid = null;
+    if (!options) {
+        options = {
+            leading: true,
+        };
+    }
+    return function (...args) {
+        const now = Date.now();
+        if (!previous && !options.leading)
+            previous = now;
+        const remaining = wait - (now - previous);
+        const context = this;
+        if (remaining <= 0) {
+            if (timerid) {
+                clearTimeout(timerid);
+                timerid = null;
+            }
+            previous = now;
+            func.apply(context, args);
+        }
     };
 };
 export const classNames = function (...args) {
@@ -40,22 +66,29 @@ export const styles = function (styleObj) {
         .map((styleKey) => `${styleKey}: ${styleObj[styleKey]}`)
         .join('; ');
 };
-export const getAnimationFrame = function (cb) {
+export const getAnimationFrame = function (context, cb) {
     return wx
         .createSelectorQuery()
+        .in(context)
         .selectViewport()
         .boundingClientRect()
         .exec(() => {
         cb();
     });
 };
-export const getRect = function (context, selector) {
-    return new Promise((resolve) => {
+export const getRect = function (context, selector, needAll = false) {
+    return new Promise((resolve, reject) => {
         wx.createSelectorQuery()
-            .in(context)
-            .select(selector)
-            .boundingClientRect()
-            .exec((rect = []) => resolve(rect[0]));
+            .in(context)[needAll ? 'selectAll' : 'select'](selector)
+            .boundingClientRect((rect) => {
+            if (rect) {
+                resolve(rect);
+            }
+            else {
+                reject(rect);
+            }
+        })
+            .exec();
     });
 };
 const isDef = function (value) {
@@ -114,20 +147,6 @@ export const getCharacterLength = (type, str, max) => {
     };
 };
 export const chunk = (arr, size) => Array.from({ length: Math.ceil(arr.length / size) }, (v, i) => arr.slice(i * size, i * size + size));
-export const equal = (v1, v2) => {
-    if (Array.isArray(v1) && Array.isArray(v2)) {
-        if (v1.length !== v2.length)
-            return false;
-        return v1.every((item, index) => equal(item, v2[index]));
-    }
-    return v1 === v2;
-};
-export const clone = (val) => {
-    if (Array.isArray(val)) {
-        return val.map((item) => clone(item));
-    }
-    return val;
-};
 export const getInstance = function (context, selector) {
     if (!context) {
         const pages = getCurrentPages();
@@ -140,4 +159,75 @@ export const getInstance = function (context, selector) {
         return null;
     }
     return instance;
+};
+export const unitConvert = (value) => {
+    var _a;
+    if (typeof value === 'string') {
+        if (value.includes('rpx')) {
+            return (parseInt(value, 10) * ((_a = systemInfo === null || systemInfo === void 0 ? void 0 : systemInfo.screenWidth) !== null && _a !== void 0 ? _a : 750)) / 750;
+        }
+        return parseInt(value, 10);
+    }
+    return value;
+};
+export const setIcon = (iconName, icon, defaultIcon) => {
+    if (icon) {
+        if (typeof icon === 'string') {
+            return {
+                [`${iconName}Name`]: icon,
+                [`${iconName}Data`]: {},
+            };
+        }
+        else if (typeof icon === 'object') {
+            return {
+                [`${iconName}Name`]: '',
+                [`${iconName}Data`]: icon,
+            };
+        }
+        else {
+            return {
+                [`${iconName}Name`]: defaultIcon,
+                [`${iconName}Data`]: {},
+            };
+        }
+    }
+    return {
+        [`${iconName}Name`]: '',
+        [`${iconName}Data`]: {},
+    };
+};
+export const isBool = (val) => typeof val === 'boolean';
+export const isObject = (val) => typeof val === 'object' && val != null;
+export const isString = (val) => typeof val === 'string';
+export const toCamel = (str) => str.replace(/-(\w)/g, (match, m1) => m1.toUpperCase());
+export const getCurrentPage = function () {
+    const pages = getCurrentPages();
+    return pages[pages.length - 1];
+};
+export const uniqueFactory = (compName) => {
+    let number = 0;
+    return () => `${prefix}_${compName}_${number++}`;
+};
+export const calcIcon = (icon, defaultIcon) => {
+    if ((isBool(icon) && icon && defaultIcon) || isString(icon)) {
+        return { name: isBool(icon) ? defaultIcon : icon };
+    }
+    if (isObject(icon)) {
+        return icon;
+    }
+    return null;
+};
+export const isOverSize = (size, sizeLimit) => {
+    var _a;
+    if (!sizeLimit)
+        return false;
+    const base = 1000;
+    const unitMap = {
+        B: 1,
+        KB: base,
+        MB: base * base,
+        GB: base * base * base,
+    };
+    const computedSize = typeof sizeLimit === 'number' ? sizeLimit * base : (sizeLimit === null || sizeLimit === void 0 ? void 0 : sizeLimit.size) * unitMap[(_a = sizeLimit === null || sizeLimit === void 0 ? void 0 : sizeLimit.unit) !== null && _a !== void 0 ? _a : 'KB'];
+    return size > computedSize;
 };

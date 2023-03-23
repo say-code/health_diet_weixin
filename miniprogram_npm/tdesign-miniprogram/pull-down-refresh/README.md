@@ -18,20 +18,12 @@ isComponent: true
 
 ## 代码演示
 
-### 基础下拉刷新
+### 顶部下拉刷新
 
 由于组件内无法监听页面滚动，需要由页面获取组件实例，并将页面滚动事件传递到组件。
 
-<img src="https://tdesign.gtimg.com/miniprogram/readme/pullDownRefresh-1.png" width="35%" height="35%">
-<img src="https://tdesign.gtimg.com/miniprogram/readme/pullDownRefresh-2.png" width="35%" height="35%">
-
-### 顶部下拉刷新
-
 {{ base }}
 
-### 中间下拉刷新
-
-{{ refresh-timeout }}
 
 
 > 在使用 pull-down-refresh 组件的页面，建议开启 `disableScroll: true`
@@ -48,12 +40,13 @@ loading-texts | Array | [] | 提示语，组件内部默认值为 ['下拉刷新
 max-bar-height | String / Number | 80 | 最大下拉高度，如果值为数字则单位是：'px' | N
 refresh-timeout | Number | 3000 | 刷新超时时间 | N
 value | Boolean | false | 组件状态，值为 `true` 表示下拉状态，值为 `false` 表示收起状态 | N
+default-value | Boolean | false | 组件状态，值为 `true` 表示下拉状态，值为 `false` 表示收起状态。非受控属性 | N
 
 ### PullDownRefresh Events
 
 名称 | 参数 | 描述
 -- | -- | --
 change | `(value: boolean)` | 下拉或收起时触发，用户手势往下滑动触发下拉状态，手势松开触发收起状态
-refresh | - | 结束下拉时触发
-timeout | - | 刷新超时触发
-scrolltolower | - | 滚动到页面底部时触发
+refresh | \- | 结束下拉时触发
+scrolltolower | \- | 滚动到页面底部时触发
+timeout | \- | 刷新超时触发

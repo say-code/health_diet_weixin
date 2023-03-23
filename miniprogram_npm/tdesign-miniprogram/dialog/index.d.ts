@@ -13,13 +13,12 @@ interface DialogAlertOptionsType {
     cancelBtn?: string | object;
     confirmBtn?: string | object;
 }
-interface DialogComfirmOptionsType extends DialogAlertOptionsType {
+interface DialogConfirmOptionsType extends DialogAlertOptionsType {
     cancelButtonText?: string;
 }
 interface Action {
-    name: string;
-    primary?: boolean;
-    style?: string;
+    content: string;
+    theme?: 'default' | 'primary' | 'danger' | 'light';
 }
 interface DialogActionOptionsType {
     context?: Context;
@@ -33,8 +32,8 @@ interface DialogActionOptionsType {
 }
 declare const _default: {
     alert(options: DialogAlertOptionsType): Promise<unknown>;
-    confirm(options: DialogComfirmOptionsType): Promise<unknown>;
-    close(options: DialogComfirmOptionsType): Promise<void>;
+    confirm(options: DialogConfirmOptionsType): Promise<unknown>;
+    close(options: DialogConfirmOptionsType): Promise<void>;
     action(options: DialogActionOptionsType): Promise<{
         index: number;
     }>;

@@ -8,6 +8,7 @@ import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
 const { prefix } = config;
+const name = `${prefix}-stepper`;
 let Stepper = class Stepper extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -15,7 +16,7 @@ let Stepper = class Stepper extends SuperComponent {
         this.options = {
             addGlobalClass: true,
         };
-        this.properties = props;
+        this.properties = Object.assign({}, props);
         this.controlledProps = [
             {
                 key: 'value',
@@ -31,7 +32,7 @@ let Stepper = class Stepper extends SuperComponent {
         };
         this.data = {
             currentValue: 0,
-            classPrefix: `${prefix}-stepper`,
+            classPrefix: name,
             prefix,
         };
     }

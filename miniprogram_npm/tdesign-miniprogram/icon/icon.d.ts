@@ -1,6 +1,5 @@
 import { SuperComponent } from '../common/src/index';
 export default class Icon extends SuperComponent {
-    behaviors: ['wx://form-field-icon'];
     externalClasses: string[];
     properties: import("./type").TdIconProps;
     data: {
@@ -10,7 +9,7 @@ export default class Icon extends SuperComponent {
         iconStyle: any;
     };
     observers: {
-        'name, color, size, customStyle'(): void;
+        'name, color, size, style'(): void;
     };
     methods: {
         onTap(event: any): void;

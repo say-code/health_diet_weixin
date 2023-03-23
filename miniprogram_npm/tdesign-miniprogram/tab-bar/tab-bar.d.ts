@@ -15,7 +15,9 @@ export default class Tabbar extends SuperComponent {
     observers: {
         value(): void;
     };
-    ready(): void;
+    lifetimes: {
+        ready(): void;
+    };
     methods: {
         showChildren(): void;
         updateChildren(): void;

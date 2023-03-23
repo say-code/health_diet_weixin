@@ -9,20 +9,26 @@ export interface TdDialogProps {
         value?: 'horizontal' | 'vertical';
     };
     cancelBtn?: {
-        type: StringConstructor;
-        optionalTypes: Array<ObjectConstructor>;
+        type: null;
         value?: string | ButtonProps | null;
+    };
+    closeBtn?: {
+        type: null;
+        value?: boolean | object;
     };
     closeOnOverlayClick?: {
         type: BooleanConstructor;
         value?: boolean;
     };
     confirmBtn?: {
-        type: StringConstructor;
-        optionalTypes: Array<ObjectConstructor>;
+        type: null;
         value?: string | ButtonProps | null;
     };
     content?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    style?: {
         type: StringConstructor;
         value?: string;
     };

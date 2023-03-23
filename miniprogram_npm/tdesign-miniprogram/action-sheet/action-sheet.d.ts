@@ -3,6 +3,10 @@ export default class ActionSheet extends SuperComponent {
     static show: (options: import("./show").ActionSheetShowOption) => WechatMiniprogram.Component.TrivialInstance;
     externalClasses: string[];
     properties: {
+        align?: {
+            type: StringConstructor;
+            value?: "center" | "left";
+        };
         cancelText?: {
             type: StringConstructor;
             value?: string;
@@ -10,6 +14,10 @@ export default class ActionSheet extends SuperComponent {
         count?: {
             type: NumberConstructor;
             value?: number;
+        };
+        description?: {
+            type: StringConstructor;
+            value?: string;
         };
         items: {
             type: ArrayConstructor;

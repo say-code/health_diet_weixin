@@ -31,7 +31,7 @@ export default {
             return Promise.reject();
         return new Promise((resolve) => {
             instance.setData(Object.assign(Object.assign({ cancelBtn: '' }, otherOptions), { visible: true }));
-            instance._onComfirm = resolve;
+            instance._onConfirm = resolve;
         });
     },
     confirm(options) {
@@ -41,7 +41,7 @@ export default {
             return Promise.reject();
         return new Promise((resolve, reject) => {
             instance.setData(Object.assign(Object.assign({}, otherOptions), { visible: true }));
-            instance._onComfirm = resolve;
+            instance._onConfirm = resolve;
             instance._onCancel = reject;
         });
     },
@@ -59,11 +59,13 @@ export default {
         const instance = getInstance(context, selector);
         if (!instance)
             return Promise.reject();
-        if (!actions || (typeof actions === 'object' && (actions.length === 0 || actions.length > 7))) {
-            console.warn('action 数量建议控制在1至7个');
+        const { buttonLayout = 'vertical' } = options;
+        const maxLengthSuggestion = buttonLayout === 'vertical' ? 7 : 3;
+        if (!actions || (typeof actions === 'object' && (actions.length === 0 || actions.length > maxLengthSuggestion))) {
+            console.warn(`action 数量建议控制在1至${maxLengthSuggestion}个`);
         }
         return new Promise((resolve) => {
-            instance.setData(Object.assign(Object.assign({ actions, buttonLayout: 'vertical' }, otherOptions), { visible: true }));
+            instance.setData(Object.assign(Object.assign({ actions }, otherOptions), { buttonLayout, visible: true }));
             instance._onAction = resolve;
         });
     },

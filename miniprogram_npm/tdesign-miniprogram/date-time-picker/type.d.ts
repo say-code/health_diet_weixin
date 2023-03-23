@@ -8,7 +8,7 @@ export interface TdDateTimePickerProps {
         value?: string;
     };
     end?: {
-        type: StringConstructor;
+        type: null;
         value?: string | number;
     };
     externalClasses?: {
@@ -24,7 +24,7 @@ export interface TdDateTimePickerProps {
         value?: boolean;
     };
     mode?: {
-        type: StringConstructor;
+        type: null;
         value?: DateTimePickerMode;
     };
     showWeek?: {
@@ -32,7 +32,7 @@ export interface TdDateTimePickerProps {
         value?: boolean;
     };
     start?: {
-        type: StringConstructor;
+        type: null;
         value?: string | number;
     };
     title?: {
@@ -40,11 +40,11 @@ export interface TdDateTimePickerProps {
         value?: string;
     };
     value?: {
-        type: StringConstructor;
+        type: null;
         value?: DateValue;
     };
     defaultValue?: {
-        type: StringConstructor;
+        type: null;
         value?: DateValue;
     };
     visible?: {

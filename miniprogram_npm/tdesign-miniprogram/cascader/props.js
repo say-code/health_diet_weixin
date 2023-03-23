@@ -3,21 +3,31 @@ const props = {
         type: Boolean,
         value: true,
     },
+    keys: {
+        type: Object,
+    },
     options: {
         type: Array,
         value: [],
+    },
+    subTitles: {
+        type: Array,
+        value: [],
+    },
+    theme: {
+        type: String,
+        value: 'step',
     },
     title: {
         type: String,
     },
     value: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
         value: null,
     },
     defaultValue: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
+        value: null,
     },
     visible: {
         type: Boolean,

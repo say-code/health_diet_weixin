@@ -8,21 +8,33 @@ export interface TdAvatarProps {
         type: ObjectConstructor;
         value?: BadgeProps;
     };
+    bordered?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
     externalClasses?: {
         type: ArrayConstructor;
-        value?: ['t-class'];
+        value?: ['t-class', 't-class-image', 't-class-icon', 't-class-alt', 't-class-content'];
     };
     hideOnLoadFailed?: {
         type: BooleanConstructor;
         value?: boolean;
     };
     icon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: string | object;
     };
     image?: {
         type: StringConstructor;
         value?: string;
+    };
+    imageProps?: {
+        type: ObjectConstructor;
+        value?: object;
     };
     shape?: {
         type: StringConstructor;
@@ -33,27 +45,4 @@ export interface TdAvatarProps {
         value?: string;
     };
 }
-export interface TdAvatarGroupProps {
-    cascading?: {
-        type: StringConstructor;
-        value?: CascadingValue;
-    };
-    collapseAvatar?: {
-        type: StringConstructor;
-        value?: string;
-    };
-    externalClasses?: {
-        type: ArrayConstructor;
-        value?: ['t-class', 't-class-image', 't-class-content'];
-    };
-    max?: {
-        type: NumberConstructor;
-        value?: number;
-    };
-    size?: {
-        type: StringConstructor;
-        value?: string;
-    };
-}
 export declare type ShapeEnum = 'circle' | 'round';
-export declare type CascadingValue = 'left-up' | 'right-up';

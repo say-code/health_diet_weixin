@@ -9,16 +9,36 @@ export default class Calendar extends SuperComponent {
     properties: TdCalendarProps;
     data: {
         prefix: string;
-        name: string;
+        classPrefix: string;
         months: any[];
+        scrollIntoView: string;
+        innerConfirmBtn: {
+            content: string;
+        };
     };
+    controlledProps: {
+        key: string;
+        event: string;
+    }[];
     lifetimes: {
         ready(): void;
     };
+    observers: {
+        confirmBtn(v: any): void;
+        'firstDayOfWeek,minDate,maxDate'(firstDayOfWeek: any, minDate: any, maxDate: any): void;
+        value(v: any): void;
+        visible(v: any): void;
+        format(v: any): void;
+    };
     methods: {
+        initialValue(): void;
+        scrollIntoView(): void;
         calcMonths(): void;
+        close(trigger: any): void;
+        onVisibleChange(): void;
         handleClose(): void;
         handleSelect(e: any): void;
         onTplButtonTap(): void;
+        toTime(val: any): any;
     };
 }

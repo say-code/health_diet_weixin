@@ -1,5 +1,5 @@
 import { SuperComponent } from '../common/src/index';
-import { UploadMpConfig, UploadFile } from './type';
+import { UploadFile } from './type';
 export default class Upload extends SuperComponent {
     externalClasses: string[];
     options: {
@@ -12,12 +12,6 @@ export default class Upload extends SuperComponent {
         proofs: any[];
         customFiles: UploadFile[];
         customLimit: number;
-        config: UploadMpConfig;
-        files: UploadFile[];
-        max: number;
-        sizeLimit: number;
-        requestMethod: any;
-        gridItemStyle: string;
         column: number;
     };
     properties: import("./type").TdUploadProps;
@@ -30,11 +24,11 @@ export default class Upload extends SuperComponent {
         max(max: any): void;
         gridConfig(): void;
     };
+    lifetimes: {
+        ready(): void;
+    };
     onProofTap(e: any): void;
-    ready(): void;
     handleLimit(customFiles: UploadFile[], max: number): void;
-    uploadFiles(files: UploadFile[]): Promise<unknown>;
-    startUpload(files: UploadFile[]): Promise<void>;
     triggerSuccessEvent(files: any): void;
     triggerFailEvent(err: any): void;
     onFileClick(e: any): void;
@@ -44,6 +38,8 @@ export default class Upload extends SuperComponent {
     deleteHandle(index: number): void;
     updateGrid(): void;
     methods: {
+        uploadFiles(files: UploadFile[]): Promise<unknown>;
+        startUpload(files: UploadFile[]): any;
         onAddTap(): void;
         chooseMedia(mediaType: any): void;
         chooseMessageFile(mediaType: any): void;

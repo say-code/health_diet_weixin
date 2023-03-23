@@ -13,12 +13,12 @@ let Picker = class Picker extends SuperComponent {
     constructor() {
         super(...arguments);
         this.properties = props;
-        this.externalClasses = ['t-class', 't-class-confirm', 't-class-cancel', 't-class-title'];
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-confirm`, `${prefix}-class-cancel`, `${prefix}-class-title`];
         this.options = {
             multipleSlots: true,
         };
         this.relations = {
-            './picker-item': {
+            '../picker-item/picker-item': {
                 type: 'child',
                 linked() {
                     this.updateChildren();
@@ -29,25 +29,23 @@ let Picker = class Picker extends SuperComponent {
             value() {
                 this.updateChildren();
             },
+            keys(obj) {
+                this.setData({
+                    labelAlias: obj.label || 'label',
+                    valueAlias: obj.value || 'value',
+                });
+            },
         };
         this.data = {
+            prefix,
             classPrefix: name,
+            labelAlias: 'label',
+            valueAlias: 'value',
         };
         this.methods = {
-            getPickerColumns() {
-                const pickerColumns = this.getRelationNodes('./picker-item');
-                if (Array.isArray(pickerColumns)) {
-                    return pickerColumns;
-                }
-                return [];
-            },
             updateChildren() {
                 const { value } = this.properties;
-                const pickerColumns = this.getPickerColumns();
-                if (!(pickerColumns === null || pickerColumns === void 0 ? void 0 : pickerColumns.length)) {
-                    return;
-                }
-                pickerColumns.forEach((child, index) => {
+                this.$children.forEach((child, index) => {
                     child.setData({
                         value: (value === null || value === void 0 ? void 0 : value[index]) || '',
                     });
@@ -55,14 +53,12 @@ let Picker = class Picker extends SuperComponent {
                 });
             },
             getSelectedValue() {
-                const pickerColumns = this.getPickerColumns();
-                const value = pickerColumns.map((item) => item._selectedValue);
-                const label = pickerColumns.map((item) => item._selectedLabel);
+                const value = this.$children.map((item) => item._selectedValue);
+                const label = this.$children.map((item) => item._selectedLabel);
                 return [value, label];
             },
             getColumnIndexes() {
-                const pickerColumns = this.getPickerColumns();
-                const columns = pickerColumns.map((pickerColumn, columnIndex) => {
+                const columns = this.$children.map((pickerColumn, columnIndex) => {
                     return {
                         column: columnIndex,
                         index: pickerColumn._selectedIndex,
@@ -73,7 +69,7 @@ let Picker = class Picker extends SuperComponent {
             onConfirm() {
                 const [value, label] = this.getSelectedValue();
                 const columns = this.getColumnIndexes();
-                this.close();
+                this.close('confirm-btn');
                 this.triggerEvent('change', { value, label, columns });
                 this.triggerEvent('confirm', { value, label, columns });
             },
@@ -82,24 +78,24 @@ let Picker = class Picker extends SuperComponent {
                 this.triggerEvent('pick', { value, label, column, index });
             },
             onCancel() {
-                this.close();
+                this.close('cancel-btn');
                 this.triggerEvent('cancel');
             },
             onPopupChange(e) {
                 const { visible } = e.detail;
-                this.close();
+                this.close('overlay');
                 this.triggerEvent('visible-change', { visible });
             },
-            close() {
+            close(trigger) {
                 if (this.data.autoClose) {
                     this.setData({ visible: false });
                 }
+                this.triggerEvent('close', { trigger });
             },
         };
     }
     ready() {
-        const columns = this.getPickerColumns();
-        columns.map((column, index) => (column.columnIndex = index));
+        this.$children.map((column, index) => (column.columnIndex = index));
     }
 };
 Picker = __decorate([

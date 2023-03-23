@@ -110,9 +110,11 @@ Page({
 
   goodListClickHandle(e) {
     const { index } = e.detail;
-    const { spuId } = this.data.goodsList[index];
+    console.log(index)
+    console.log(this.data.goodsList[index].businessId)
+    let pps = this.data.goodsList[index].businessId;
     wx.navigateTo({
-      url: `/pages/goods/details/index?spuId=${spuId}`,
+      url: "/pages/business/business?businessId=" + pps,
     });
   },
 

@@ -13,6 +13,13 @@
         <t-cell t-class-left="t-cell-left" t-class-title="t-cell-title" title="手机号">
           <t-input slot="note" class="t-input" t-class="field-text" type="number" maxlength="11" placeholder="联系您的手机号" model:value="{{phone}}" />
         </t-cell>
+
+        <t-radio-group default-value="0" borderless t-class="box" bind:change="handleChange" value="{{sex}}">
+          <t-cell t-class-left="t-cell-left" t-class-title="t-cell-title" title="性别" />
+          <t-radio block="{{false}}" label="男" value="0" t-class="radios" />
+          <t-radio block="{{false}}" label="女" value="1" t-class="radios" />
+        </t-radio-group>
+        <view class="divider-line" />
         <t-cell t-class-left="t-cell-left" t-class-title="t-cell-title" title="地区">
           <t-input slot="note" class="t-input" t-class="field-text" placeholder="省" model:value="{{provinceName}}" type="text" />
           <t-input slot="note" class="t-input" t-class="field-text" placeholder="市" model:value="{{cityName}}" type="text" />
@@ -38,7 +45,7 @@
         </t-cell>
       </t-cell-group>
       <view class="submit">
-        <t-button t-class="btn-submit-address {{submitActive ? 'theme-wrapper-class' : 'disabled'}}" bind:tap="formSubmit">
+        <t-button t-class="btn-submit-address" bind:tap="formSubmit">
           保存
         </t-button>
       </view>

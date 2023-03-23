@@ -4,7 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { styles } from '../common/utils';
+import { styles, calcIcon } from '../common/utils';
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
@@ -21,7 +21,8 @@ let ImageViewer = class ImageViewer extends SuperComponent {
             currentSwiperIndex: 0,
             windowHeight: 0,
             windowWidth: 0,
-            imagesShape: {},
+            swiperStyle: {},
+            imagesStyle: {},
         };
         this.options = {
             multipleSlots: true,
@@ -36,6 +37,16 @@ let ImageViewer = class ImageViewer extends SuperComponent {
             visible(value) {
                 this.setData({
                     currentSwiperIndex: value ? this.properties.initialIndex : 0,
+                });
+            },
+            closeBtn(v) {
+                this.setData({
+                    _closeBtn: calcIcon(v, 'close'),
+                });
+            },
+            deleteBtn(v) {
+                this.setData({
+                    _deleteBtn: calcIcon(v, 'delete'),
                 });
             },
         };
@@ -80,9 +91,13 @@ let ImageViewer = class ImageViewer extends SuperComponent {
             onImageLoadSuccess(e) {
                 const { detail: { width, height }, currentTarget: { dataset: { index }, }, } = e;
                 const { mode, styleObj } = this.calcImageDisplayStyle(width, height);
-                const origin = this.data.imagesShape;
+                const originImagesStyle = this.data.imagesStyle;
+                const originSwiperStyle = this.data.swiperStyle;
                 this.setData({
-                    imagesShape: Object.assign(Object.assign({}, origin), { [index]: {
+                    swiperStyle: Object.assign(Object.assign({}, originSwiperStyle), { [index]: {
+                            style: `height: ${styleObj.height}`,
+                        } }),
+                    imagesStyle: Object.assign(Object.assign({}, originImagesStyle), { [index]: {
                             mode,
                             style: styles(Object.assign({}, styleObj)),
                         } }),
@@ -96,8 +111,8 @@ let ImageViewer = class ImageViewer extends SuperComponent {
                 this._trigger('change', { index: current });
             },
             onClose(e) {
-                const { target: { dataset: { source }, }, } = e;
-                this._trigger('close', { visible: false, trigger: source, index: this.data.currentSwiperIndex });
+                const { source } = e.currentTarget.dataset;
+                this._trigger('close', { visible: false, trigger: source || 'button', index: this.data.currentSwiperIndex });
             },
             onDelete() {
                 this._trigger('delete', { index: this.data.currentSwiperIndex });

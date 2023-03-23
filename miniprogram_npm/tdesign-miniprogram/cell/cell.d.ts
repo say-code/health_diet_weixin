@@ -1,6 +1,7 @@
-import { SuperComponent } from '../common/src/index';
+import { SuperComponent, RelationsOptions } from '../common/src/index';
 export default class Cell extends SuperComponent {
     externalClasses: string[];
+    relations: RelationsOptions;
     options: {
         multipleSlots: boolean;
     };
@@ -8,6 +9,7 @@ export default class Cell extends SuperComponent {
     data: {
         prefix: string;
         classPrefix: string;
+        isLastChild: boolean;
     };
     onClick(e: any): void;
     jumpLink(urlKey?: string, link?: string): void;

@@ -17,10 +17,6 @@ export default class Overlay extends SuperComponent {
             type: BooleanConstructor;
             value: boolean;
         };
-        customStyle: {
-            type: StringConstructor;
-            value: string;
-        };
     };
     behaviors: string[];
     data: {

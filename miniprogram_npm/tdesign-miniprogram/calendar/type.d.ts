@@ -1,8 +1,16 @@
 import { ButtonProps } from '../button/index';
 export interface TdCalendarProps {
+    autoClose?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
     confirmBtn?: {
         type: null;
         value?: string | ButtonProps | null;
+    };
+    style?: {
+        type: StringConstructor;
+        value?: string;
     };
     firstDayOfWeek?: {
         type: NumberConstructor;
@@ -10,15 +18,15 @@ export interface TdCalendarProps {
     };
     format?: {
         type: undefined;
-        value?: (day: TDate) => TDate;
+        value?: CalendarFormatType;
     };
     maxDate?: {
         type: NumberConstructor;
-        value?: number | Date;
+        value?: number;
     };
     minDate?: {
         type: NumberConstructor;
-        value?: number | Date;
+        value?: number;
     };
     title?: {
         type: StringConstructor;
@@ -28,15 +36,24 @@ export interface TdCalendarProps {
         type: StringConstructor;
         value?: 'single' | 'multiple' | 'range';
     };
+    usePopup?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
     value?: {
         type: null;
-        value?: number | Date | TCalendarValue[];
+        value?: number | number[];
+    };
+    defaultValue?: {
+        type: null;
+        value?: number | number[];
     };
     visible?: {
         type: BooleanConstructor;
         value?: boolean;
     };
 }
+export declare type CalendarFormatType = (day: TDate) => TDate;
 export declare type TDateType = 'selected' | 'disabled' | 'start' | 'centre' | 'end' | '';
 export interface TDate {
     date: Date;
@@ -46,4 +63,3 @@ export interface TDate {
     prefix?: string;
     suffix?: string;
 }
-export declare type TCalendarValue = number | Date;

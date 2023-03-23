@@ -1,30 +1,30 @@
 export interface TdResultProps {
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
     description?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-description', 't-class-image'];
-        required?: boolean;
     };
     icon?: {
-        type: StringConstructor;
-        value?: string;
-        required?: boolean;
+        type: null;
+        value?: boolean | string | object;
     };
     image?: {
-        type: StringConstructor;
-        value?: string;
-        required?: boolean;
-    };
-    title?: {
         type: StringConstructor;
         value?: string;
     };
     theme?: {
         type: StringConstructor;
         value?: 'default' | 'success' | 'warning' | 'error';
+    };
+    title?: {
+        type: StringConstructor;
+        value?: string;
     };
 }

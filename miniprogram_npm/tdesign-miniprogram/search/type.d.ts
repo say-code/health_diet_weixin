@@ -1,4 +1,8 @@
 export interface TdSearchProps {
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
     action?: {
         type: StringConstructor;
         value?: string;
@@ -42,5 +46,9 @@ export interface TdSearchProps {
     value?: {
         type: StringConstructor;
         value?: string;
+    };
+    clearable: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
 }

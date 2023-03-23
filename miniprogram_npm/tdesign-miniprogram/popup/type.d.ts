@@ -12,9 +12,13 @@ export interface TdPopupProps {
         type: StringConstructor;
         value?: string;
     };
-    customStyle?: {
+    style?: {
         type: StringConstructor;
         value?: string;
+    };
+    duration?: {
+        type: NumberConstructor;
+        value?: number;
     };
     externalClasses?: {
         type: ArrayConstructor;
@@ -41,6 +45,10 @@ export interface TdPopupProps {
         value?: TdTransitionProps;
     };
     visible?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    defaultVisible?: {
         type: BooleanConstructor;
         value?: boolean;
     };

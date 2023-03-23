@@ -1,23 +1,15 @@
 export interface TdFooterProps {
-    copyright?: {
+    text?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     logo?: {
         type: ObjectConstructor;
         value?: FooterLogo;
-        required?: boolean;
     };
-    textLinkList?: {
+    links?: {
         type: ArrayConstructor;
         value?: Array<LinkObj>;
-        required?: boolean;
-    };
-    theme?: {
-        type: StringConstructor;
-        value?: 'text' | 'logo';
-        required?: boolean;
     };
 }
 export interface FooterLogo {

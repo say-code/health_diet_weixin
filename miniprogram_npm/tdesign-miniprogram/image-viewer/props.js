@@ -17,11 +17,11 @@ const props = {
         value: false,
     },
     deleteBtn: {
-        type: Boolean,
+        type: null,
         value: false,
     },
     closeBtn: {
-        type: Boolean,
+        type: null,
         value: false,
     },
     visible: {

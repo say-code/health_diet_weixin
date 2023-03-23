@@ -1,5 +1,5 @@
 export interface TdIconProps {
-    customStyle?: {
+    style?: {
         type: StringConstructor;
         value?: string;
         required?: boolean;

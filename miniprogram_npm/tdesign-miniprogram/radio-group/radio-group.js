@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import config from '../common/config';
 import { SuperComponent, wxComponent } from '../common/src/index';
-import Props from './props';
+import props from './props';
 const { prefix } = config;
 const name = `${prefix}-radio-group`;
 let RadioGroup = class RadioGroup extends SuperComponent {
@@ -30,10 +30,7 @@ let RadioGroup = class RadioGroup extends SuperComponent {
                 },
             },
         };
-        this.properties = Object.assign(Object.assign({}, Props), { borderless: {
-                type: Boolean,
-                value: false,
-            } });
+        this.properties = props;
         this.controlledProps = [
             {
                 key: 'value',
@@ -41,10 +38,10 @@ let RadioGroup = class RadioGroup extends SuperComponent {
             },
         ];
         this.observers = {
-            value() {
+            value(v) {
                 this.getChilds().forEach((item) => {
                     item.setData({
-                        checked: this.data.value === item.data.value,
+                        checked: v === item.data.value,
                     });
                 });
             },
@@ -54,7 +51,7 @@ let RadioGroup = class RadioGroup extends SuperComponent {
         };
         this.methods = {
             getChilds() {
-                let items = this.getRelationNodes('../radio/radio');
+                let items = this.$children;
                 if (!(items === null || items === void 0 ? void 0 : items.length)) {
                     items = this.selectAllComponents(`.${prefix}-radio-option`);
                 }
@@ -68,22 +65,27 @@ let RadioGroup = class RadioGroup extends SuperComponent {
                 this._trigger('change', { value, index });
             },
             initWithOptions() {
-                const { options } = this.data;
+                const { options, value, keys } = this.data;
                 if (!(options === null || options === void 0 ? void 0 : options.length) || !Array.isArray(options)) {
+                    this.setData({
+                        radioOptions: [],
+                    });
                     return;
                 }
                 const optionsValue = [];
                 try {
                     options.forEach((element) => {
+                        var _a, _b, _c;
                         const typeName = typeof element;
                         if (typeName === 'number' || typeName === 'string') {
                             optionsValue.push({
                                 label: `${element}`,
                                 value: element,
+                                checked: value === element,
                             });
                         }
                         else if (typeName === 'object') {
-                            optionsValue.push(Object.assign({}, element));
+                            optionsValue.push(Object.assign(Object.assign({}, element), { label: element[(_a = keys === null || keys === void 0 ? void 0 : keys.label) !== null && _a !== void 0 ? _a : 'label'], value: element[(_b = keys === null || keys === void 0 ? void 0 : keys.value) !== null && _b !== void 0 ? _b : 'value'], checked: value === element[(_c = keys === null || keys === void 0 ? void 0 : keys.value) !== null && _c !== void 0 ? _c : 'value'] }));
                         }
                     });
                     this.setData({

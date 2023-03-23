@@ -3,8 +3,11 @@ const props = {
         type: null,
         value: '',
     },
+    externalClasses: {
+        type: Array,
+    },
     label: {
-        type: Boolean,
+        type: null,
         value: true,
     },
     percentage: {
@@ -15,8 +18,11 @@ const props = {
         type: String,
     },
     strokeWidth: {
+        type: null,
+    },
+    theme: {
         type: String,
-        optionalTypes: [Number],
+        value: 'line',
     },
     trackColor: {
         type: String,

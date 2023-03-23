@@ -21,5 +21,9 @@ const props = {
         type: Boolean,
         value: false,
     },
+    theme: {
+        type: String,
+        value: 'default',
+    },
 };
 export default props;

@@ -18,6 +18,9 @@ const props = {
         type: Boolean,
         value: true,
     },
+    title: {
+        type: String,
+    },
     visible: {
         type: Boolean,
         value: false,

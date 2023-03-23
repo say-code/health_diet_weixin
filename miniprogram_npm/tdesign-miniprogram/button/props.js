@@ -21,12 +21,7 @@ const props = {
         value: false,
     },
     icon: {
-        type: String,
-        value: '',
-    },
-    iconProps: {
-        type: Object,
-        value: {},
+        type: null,
     },
     loading: {
         type: Boolean,

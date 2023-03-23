@@ -2,60 +2,37 @@ export interface TdNavbarProps {
     animation?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
-    background?: {
+    style?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     delta?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
     };
     externalClasses?: {
         type: ArrayConstructor;
-        value?: [
-            't-class',
-            't-class-title',
-            't-class-left',
-            't-class-center',
-            't-class-left-icon',
-            't-class-home-icon',
-            't-class-capsule',
-            't-class-nav-btn'
-        ];
-        required?: boolean;
+        value?: ['t-class', 't-class-title', 't-class-left-icon', 't-class-home-icon', 't-class-capsule'];
     };
     fixed?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
-    homeIcon?: {
-        type: StringConstructor;
-        value?: string;
-        required?: boolean;
-    };
-    leftIcon?: {
-        type: StringConstructor;
-        value?: string;
-        required?: boolean;
+    leftArrow?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
     title?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     titleMaxLength?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
     };
     visible?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
 }

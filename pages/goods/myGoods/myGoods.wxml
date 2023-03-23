@@ -1,0 +1,19 @@
+<!--pages/goods/myGoods/myGoods.wxml-->
+<view class="body">
+  <image src="{{img}}" />
+  <t-divider />
+  <view class="byTop">
+    <p class="tittle">{{tittle}}</p>
+    <p class="price">￥{{price}}</p>
+  </view>
+  <t-divider></t-divider>
+  <view class="byMiddle">
+    <p class="tittle">商品详情</p>
+    <p class="desc"><span>商品描述：</span>{{desc}}</p>
+    <p class="desc"><span>口味：</span>{{flavor===[]? flavor:'暂无'}}</p>
+  </view>
+
+  <view class="flow-foot">
+    <t-button theme="primary" size="large" bindtap="addCart" block>加入购物车</t-button>
+  </view>
+</view>

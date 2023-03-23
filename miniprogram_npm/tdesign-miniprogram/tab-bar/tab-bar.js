@@ -13,7 +13,7 @@ let Tabbar = class Tabbar extends SuperComponent {
     constructor() {
         super(...arguments);
         this.relations = {
-            './tab-bar-item': {
+            '../tab-bar-item/tab-bar-item': {
                 type: 'descendant',
             },
         };
@@ -35,35 +35,32 @@ let Tabbar = class Tabbar extends SuperComponent {
                 this.updateChildren();
             },
         };
+        this.lifetimes = {
+            ready() {
+                this.showChildren();
+            },
+        };
         this.methods = {
             showChildren() {
-                const items = this.getRelationNodes('./tab-bar-item');
-                const len = items.length;
                 const { value } = this.data;
-                if (len > 0) {
-                    items.forEach((child) => {
-                        if (child.properties.value === value) {
-                            child.showSpread();
-                        }
-                    });
-                }
+                this.$children.forEach((child) => {
+                    if (child.properties.value === value) {
+                        child.showSpread();
+                        child.setData({ crowded: this.$children > 3 });
+                    }
+                });
             },
             updateChildren() {
-                const items = this.getRelationNodes('./tab-bar-item');
-                const len = items.length;
                 const { value } = this.data;
-                if (len > 0) {
-                    items.forEach((child) => {
-                        child.checkActive(value);
-                    });
-                }
+                this.$children.forEach((child) => {
+                    child.checkActive(value);
+                });
             },
             updateValue(value) {
                 this._trigger('change', { value });
             },
             changeOtherSpread(value) {
-                const items = this.getRelationNodes('./tab-bar-item');
-                items.forEach((child) => {
+                this.$children.forEach((child) => {
                     if (child.properties.value !== value) {
                         child.closeSpread();
                     }
@@ -73,9 +70,6 @@ let Tabbar = class Tabbar extends SuperComponent {
                 return (this.backupValue += 1);
             },
         };
-    }
-    ready() {
-        this.showChildren();
     }
 };
 Tabbar = __decorate([

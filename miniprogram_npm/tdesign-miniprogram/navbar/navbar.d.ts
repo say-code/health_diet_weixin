@@ -9,26 +9,16 @@ export default class Navbar extends SuperComponent {
     properties: import("./type").TdNavbarProps;
     observers: {
         visible(this: Navbar, visible: any): void;
-        fixed(this: Navbar, fixed: any): void;
-        background(this: Navbar, background: any): void;
-        'homeIcon, leftIcon'(this: Navbar): void;
         'title,titleMaxLength'(this: any): void;
     };
     data: {
-        hasHomeIcon: boolean;
-        hasBackIcon: boolean;
+        prefix: string;
         classPrefix: string;
-        fixedClass: string;
-        contentStyle: string;
         boxStyle: string;
-        opacity: number;
-        ios: boolean;
         showTitle: string;
     };
     attached(): void;
     methods: {
-        calcLeftBtn(): void;
-        goHome(): void;
         goBack(): void;
     };
 }

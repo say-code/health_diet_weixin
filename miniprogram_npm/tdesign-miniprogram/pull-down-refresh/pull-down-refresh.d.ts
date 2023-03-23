@@ -1,4 +1,4 @@
-import { SuperComponent } from '../common/src/index';
+import { SuperComponent, RelationsOptions } from '../common/src/index';
 export default class PullDownRefresh extends SuperComponent {
     pixelRatio: number;
     startPoint: {
@@ -14,6 +14,7 @@ export default class PullDownRefresh extends SuperComponent {
     options: {
         multipleSlots: boolean;
     };
+    relations: RelationsOptions;
     properties: import("./type").TdPullDownRefreshProps;
     data: {
         prefix: string;

@@ -32,7 +32,7 @@ const props = {
     },
     rightIcon: {
         type: String,
-        value: 'close',
+        value: 'close-circle-filled',
     },
     shape: {
         type: String,
@@ -41,6 +41,10 @@ const props = {
     value: {
         type: String,
         value: '',
+    },
+    clearable: {
+        type: Boolean,
+        value: true,
     },
 };
 export default props;

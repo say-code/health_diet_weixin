@@ -7,12 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import ImageProps from './props';
 import config from '../common/config';
+import { addUnit, getRect } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-image`;
 let Image = class Image extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = ['t-class', 't-class-load'];
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-load`];
         this.options = {
             multipleSlots: true,
         };
@@ -21,13 +22,24 @@ let Image = class Image extends SuperComponent {
             prefix,
             isLoading: true,
             isFailed: false,
-            widthStyle: '',
+            innerStyle: '',
             classPrefix: name,
         };
         this.preSrc = '';
         this.lifetimes = {
             attached() {
+                const { width, height } = this.data;
+                let innerStyle = '';
                 this.update();
+                if (width) {
+                    innerStyle += `width: ${addUnit(width)};`;
+                }
+                if (height) {
+                    innerStyle += `height: ${addUnit(height)};`;
+                }
+                this.setData({
+                    innerStyle,
+                });
             },
         };
         this.observers = {
@@ -47,15 +59,11 @@ let Image = class Image extends SuperComponent {
                     (versionArray[0] === 2 && versionArray[1] === 10 && versionArray[2] < 3);
                 if (mode === 'heightFix' && isInCompatible) {
                     const { height: picHeight, width: picWidth } = e.detail;
-                    const query = this.createSelectorQuery();
-                    query
-                        .select('#image')
-                        .boundingClientRect((res) => {
-                        const { height } = res;
+                    getRect(this, '#image').then((rect) => {
+                        const { height } = rect;
                         const resultWidth = ((height / picHeight) * picWidth).toFixed(2);
-                        this.setData({ widthStyle: `width: ${resultWidth}px;` });
-                    })
-                        .exec();
+                        this.setData({ innerStyle: `height: ${addUnit(height)}; width: ${resultWidth}px;` });
+                    });
                 }
                 this.setData({
                     isLoading: false,

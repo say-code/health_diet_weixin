@@ -5,11 +5,11 @@ const props = {
     externalClasses: {
         type: Array,
     },
-    placement: {
-        type: String,
-        value: 'top',
-    },
     showBottomLine: {
+        type: Boolean,
+        value: true,
+    },
+    spaceEvenly: {
         type: Boolean,
         value: true,
     },
@@ -23,6 +23,10 @@ const props = {
     swipeable: {
         type: Boolean,
         value: true,
+    },
+    theme: {
+        type: String,
+        value: 'line',
     },
     value: {
         type: null,

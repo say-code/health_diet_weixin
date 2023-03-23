@@ -13,9 +13,13 @@ export default class CheckBox extends SuperComponent {
             type: BooleanConstructor;
             value: boolean;
         };
-        align?: {
+        placement?: {
             type: StringConstructor;
             value?: "left" | "right";
+        };
+        block?: {
+            type: BooleanConstructor;
+            value?: boolean;
         };
         checkAll?: {
             type: BooleanConstructor;
@@ -29,10 +33,6 @@ export default class CheckBox extends SuperComponent {
             type: BooleanConstructor;
             value?: boolean;
         };
-        color?: {
-            type: StringConstructor;
-            value?: string;
-        };
         content?: {
             type: StringConstructor;
             value?: string;
@@ -40,6 +40,10 @@ export default class CheckBox extends SuperComponent {
         contentDisabled?: {
             type: BooleanConstructor;
             value?: boolean;
+        };
+        style?: {
+            type: StringConstructor;
+            value?: string;
         };
         disabled?: {
             type: BooleanConstructor;
@@ -50,8 +54,8 @@ export default class CheckBox extends SuperComponent {
             value?: ["t-class", "t-class-icon", "t-class-label", "t-class-content", "t-class-border"];
         };
         icon?: {
-            type: ArrayConstructor;
-            value?: string[];
+            type: null;
+            value?: string[] | "circle" | "rectangle" | "line";
         };
         indeterminate?: {
             type: BooleanConstructor;
@@ -78,9 +82,8 @@ export default class CheckBox extends SuperComponent {
             value?: boolean;
         };
         value?: {
-            type: StringConstructor;
-            optionalTypes: NumberConstructor[];
-            value?: string | number;
+            type: null;
+            value?: string | number | boolean;
         };
     };
     data: {

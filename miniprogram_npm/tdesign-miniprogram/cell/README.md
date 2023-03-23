@@ -18,17 +18,25 @@ isComponent: true
 
 ## 代码演示
 
-### 单行单元格
+### 类型
+
+单行单元格
 
 <img src="https://tdesign.gtimg.com/miniprogram/readme/cell-1.png" width="375px" height="50%">
 
 {{ base }}
 
-### 多行单元格
+多行单元格
 
 <img src="https://tdesign.gtimg.com/miniprogram/readme/cell-2.png" width="375px" height="50%">
 
 {{ multiple }}
+
+### 样式
+
+卡片单元格
+
+{{ theme }}
 
 ## API
 ### Cell Props
@@ -55,3 +63,12 @@ url | String | - | 点击后跳转链接地址。如果值为空，则表示不�
 名称 | 参数 | 描述
 -- | -- | --
 click | - | 右侧内容
+
+### CellGroup Props
+
+名称 | 类型 | 默认值 | 说明 | 必传
+-- | -- | -- | -- | --
+bordered | Boolean | - | 是否显示组边框 | N
+external-classes | Array | - | 组件类名。`['t-class']` | N
+theme | String | default | 单元格风格。可选项：default/card | N
+title | String | - | 单元格组标题 | N

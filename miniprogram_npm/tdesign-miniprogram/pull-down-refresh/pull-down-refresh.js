@@ -23,6 +23,11 @@ let PullDownRefresh = class PullDownRefresh extends SuperComponent {
         this.options = {
             multipleSlots: true,
         };
+        this.relations = {
+            '../back-top/back-top': {
+                type: 'descendant',
+            },
+        };
         this.properties = props;
         this.data = {
             prefix,
@@ -81,9 +86,11 @@ let PullDownRefresh = class PullDownRefresh extends SuperComponent {
                 });
             },
             onScroll(e) {
+                const { scrollTop } = e.detail;
                 this.setData({
-                    enableToRefresh: e.detail.scrollTop === 0,
+                    enableToRefresh: scrollTop === 0,
                 });
+                this.triggerEvent('scroll', { scrollTop });
             },
             onTouchStart(e) {
                 if (this.isPulling || !this.data.enableToRefresh)

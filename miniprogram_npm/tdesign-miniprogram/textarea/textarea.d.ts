@@ -5,91 +5,30 @@ export default class Textarea extends SuperComponent {
     };
     behaviors: string[];
     externalClasses: string[];
-    properties: {
-        cursorSpacing: {
-            type: NumberConstructor;
-            value: number;
-        };
-        adjustPosition?: {
-            type: BooleanConstructor;
-            value?: boolean;
-            required?: boolean;
-        };
-        autofocus?: {
-            type: BooleanConstructor;
-            value?: boolean;
-            required?: boolean;
-        };
-        autosize?: {
-            type: BooleanConstructor;
-            value?: boolean;
-            required?: boolean;
-        };
-        confirmHold?: {
-            type: BooleanConstructor;
-            value?: boolean;
-            required?: boolean;
-        };
-        confirmType?: {
-            type: StringConstructor;
-            value?: "send" | "search" | "next" | "go" | "done";
-            required?: boolean;
-        };
-        disabled?: {
-            type: BooleanConstructor;
-            value?: boolean;
-            required?: boolean;
-        };
-        externalClasses?: {
-            type: ArrayConstructor;
-            value?: ["t-class", "t-class-textarea", "t-class-placeholder", "t-class-name"];
-            required?: boolean;
-        };
-        focus?: {
-            type: BooleanConstructor;
-            value?: boolean;
-            required?: boolean;
-        };
-        label?: {
-            type: StringConstructor;
-            value?: string;
-            required?: boolean;
-        };
-        maxcharacter?: {
-            type: NumberConstructor;
-            value?: number;
-            required?: boolean;
-        };
-        maxlength?: {
-            type: NumberConstructor;
-            value?: number;
-            required?: boolean;
-        };
-        placeholder?: {
-            type: StringConstructor;
-            value?: string;
-            required?: boolean;
-        };
-        value?: {
-            type: StringConstructor;
-            value?: string;
-            required?: boolean;
-        };
-    };
+    properties: import("./type").TdTextareaProps;
     data: {
         prefix: string;
         classPrefix: string;
         count: number;
     };
+    observers: {
+        value(val: any): void;
+    };
     lifetimes: {
         ready(): void;
     };
     methods: {
-        updateValue(value: any): void;
+        updateCount(val: any): void;
+        updateValue(val: any): void;
+        calculateValue(value: any, maxcharacter: any, maxlength: any): {
+            value: any;
+            count: number;
+        };
         onInput(event: any): void;
         onFocus(event: any): void;
         onBlur(event: any): void;
         onConfirm(event: any): void;
         onLineChange(event: any): void;
+        onKeyboardHeightChange(e: any): void;
     };
 }

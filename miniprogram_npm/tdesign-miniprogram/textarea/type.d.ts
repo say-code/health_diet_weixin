@@ -2,66 +2,105 @@ export interface TdTextareaProps {
     adjustPosition?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
     autofocus?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
     autosize?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
     confirmHold?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
     confirmType?: {
         type: StringConstructor;
-        value?: 'send' | 'search' | 'next' | 'go' | 'done';
-        required?: boolean;
+        value?: 'return' | 'send' | 'search' | 'next' | 'go' | 'done';
+    };
+    cursorSpacing?: {
+        type: NumberConstructor;
+        value?: number;
+    };
+    style?: {
+        type: StringConstructor;
+        value?: string;
     };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
     externalClasses?: {
         type: ArrayConstructor;
-        value?: ['t-class', 't-class-textarea', 't-class-placeholder', 't-class-name'];
-        required?: boolean;
+        value?: ['t-class', 't-class-textarea', 't-class-label'];
+    };
+    fixed?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
     focus?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
     label?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     maxcharacter?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
     };
     maxlength?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
     };
     placeholder?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
+    };
+    placeholderStyle: {
+        type: StringConstructor;
+        value: string;
     };
     value?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
+    };
+    defaultValue?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    bordered?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    indicator?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    cursor: {
+        type: NumberConstructor;
+        value?: number;
+    };
+    showConfirmBar: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    selectionStart?: {
+        type: NumberConstructor;
+        value?: number;
+    };
+    selectionEnd?: {
+        type: NumberConstructor;
+        value?: number;
+    };
+    disableDefaultPadding?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    holdKeyboard?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
 }

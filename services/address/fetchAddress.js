@@ -1,4 +1,6 @@
 import { config } from '../../config/index';
+const req = require('../../utils/request');
+const app = getApp()
 
 /** 获取收货地址 */
 function mockFetchDeliveryAddress(id) {
@@ -11,9 +13,9 @@ function mockFetchDeliveryAddress(id) {
 /** 获取收货地址 */
 export function fetchDeliveryAddress(id = 0) {
   if (config.useMock) {
+
     return mockFetchDeliveryAddress(id);
   }
-
   return new Promise((resolve) => {
     resolve('real api');
   });
@@ -37,12 +39,18 @@ function mockFetchDeliveryAddressList(len = 0) {
 }
 
 /** 获取收货地址列表 */
-export function fetchDeliveryAddressList(len = 10) {
+export async function fetchDeliveryAddressList(len = 10) {
   if (config.useMock) {
-    return mockFetchDeliveryAddressList(len);
+    let data = []
+    console.log(mockFetchDeliveryAddressList(len))
+    req.get("/addressBook/list")
+      .then((res) => {
+        console.log(res.data)
+        data = res.data
+        return data
+      })
+
+    // return mockFetchDeliveryAddressList(len);
   }
 
-  return new Promise((resolve) => {
-    resolve('real api');
-  });
 }

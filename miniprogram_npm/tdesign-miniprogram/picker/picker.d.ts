@@ -8,12 +8,15 @@ export default class Picker extends SuperComponent {
     relations: RelationsOptions;
     observers: {
         value(): void;
+        keys(obj: any): void;
     };
     data: {
+        prefix: string;
         classPrefix: string;
+        labelAlias: string;
+        valueAlias: string;
     };
     methods: {
-        getPickerColumns(): any[];
         updateChildren(): void;
         getSelectedValue(): any[];
         getColumnIndexes(): any;
@@ -24,7 +27,7 @@ export default class Picker extends SuperComponent {
         }): void;
         onCancel(): void;
         onPopupChange(e: any): void;
-        close(): void;
+        close(trigger: any): void;
     };
     ready(): void;
 }

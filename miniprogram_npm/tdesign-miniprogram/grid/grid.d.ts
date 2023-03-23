@@ -4,6 +4,7 @@ export default class Grid extends SuperComponent {
     relations: RelationsOptions;
     properties: import("./type").TdGridProps;
     data: {
+        prefix: string;
         classPrefix: string;
         contentStyle: string;
     };
@@ -13,7 +14,6 @@ export default class Grid extends SuperComponent {
     };
     lifetimes: {
         attached(): void;
-        created(): void;
     };
     methods: {
         doForChild(action: (item: WechatMiniprogram.Component.TrivialInstance) => void): void;

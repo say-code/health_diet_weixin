@@ -14,9 +14,17 @@ const props = {
         type: Boolean,
         value: true,
     },
+    shape: {
+        type: String,
+        value: 'normal',
+    },
     split: {
         type: Boolean,
         value: true,
+    },
+    theme: {
+        type: String,
+        value: 'normal',
     },
     value: {
         type: null,

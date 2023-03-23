@@ -1,8 +1,11 @@
-import { BadgeProps } from '../badge/index';
 export interface TdTabBarProps {
     bordered?: {
         type: BooleanConstructor;
         value?: boolean;
+    };
+    style?: {
+        type: StringConstructor;
+        value?: string;
     };
     externalClasses?: {
         type: ArrayConstructor;
@@ -16,9 +19,17 @@ export interface TdTabBarProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    shape?: {
+        type: StringConstructor;
+        value?: 'normal' | 'round';
+    };
     split?: {
         type: BooleanConstructor;
         value?: boolean;
+    };
+    theme?: {
+        type: StringConstructor;
+        value?: 'normal' | 'tag';
     };
     value?: {
         type: null;
@@ -28,26 +39,4 @@ export interface TdTabBarProps {
         type: null;
         value?: string | number | Array<string | number>;
     };
-}
-export interface TdTabBarItemProps {
-    badgeProps?: {
-        type: ObjectConstructor;
-        value?: BadgeProps;
-    };
-    icon?: {
-        type: StringConstructor;
-        value?: string;
-    };
-    subTabBar?: {
-        type: ArrayConstructor;
-        value?: SubTabBarItem[];
-    };
-    value?: {
-        type: null;
-        value?: string | number;
-    };
-}
-export interface SubTabBarItem {
-    value: string;
-    label: string;
 }

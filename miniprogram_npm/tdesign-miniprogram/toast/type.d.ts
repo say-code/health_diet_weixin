@@ -1,4 +1,8 @@
 export interface TdToastProps {
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
     direction?: {
         type: StringConstructor;
         value?: 'row' | 'column';
@@ -12,7 +16,7 @@ export interface TdToastProps {
         value?: ['t-class'];
     };
     icon?: {
-        type: StringConstructor;
+        type: null;
         value?: string;
     };
     message?: {
@@ -37,6 +41,6 @@ export interface TdToastProps {
     };
     theme?: {
         type: StringConstructor;
-        value?: 'loading' | 'success' | 'fail';
+        value?: 'loading' | 'success' | 'error';
     };
 }

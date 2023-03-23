@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "添加新地址",
+  "component": true,
   "usingComponents": {
     "t-textarea": "tdesign-miniprogram/textarea/textarea",
     "t-icon": "tdesign-miniprogram/icon/icon",
@@ -11,6 +12,9 @@
     "t-dialog": "tdesign-miniprogram/dialog/dialog",
     "t-switch": "tdesign-miniprogram/switch/switch",
     "t-location": "/pages/usercenter/components/t-location/index",
-    "t-area-picker": "../../components/area-picker-new/index"
+    "t-area-picker": "../../components/area-picker-new/index",
+    "t-picker": "tdesign-miniprogram/picker/picker",
+    "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
+    "t-radio": "tdesign-miniprogram/radio/radio"
   }
 }

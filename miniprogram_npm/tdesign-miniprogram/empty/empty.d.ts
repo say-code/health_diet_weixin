@@ -6,6 +6,10 @@ export default class extends SuperComponent {
     externalClasses: string[];
     properties: import("./type").TdEmptyProps;
     data: {
+        prefix: string;
         classPrefix: string;
+    };
+    observers: {
+        icon(icon: any): void;
     };
 }

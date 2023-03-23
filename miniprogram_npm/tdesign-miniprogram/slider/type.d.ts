@@ -1,15 +1,11 @@
 export interface TdSliderProps {
-    colors?: {
-        type: ArrayConstructor;
-        value?: Array<string>;
+    style?: {
+        type: StringConstructor;
+        value?: string;
     };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;
-    };
-    disabledColor?: {
-        type: ArrayConstructor;
-        value?: Array<string>;
     };
     externalClasses?: {
         type: ArrayConstructor;
@@ -42,6 +38,10 @@ export interface TdSliderProps {
     step?: {
         type: NumberConstructor;
         value?: number;
+    };
+    theme?: {
+        type: StringConstructor;
+        value?: 'default' | 'capsule';
     };
     value?: {
         type: null;

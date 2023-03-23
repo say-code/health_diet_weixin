@@ -1,22 +1,22 @@
 export interface TdEmptyProps {
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
     description?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-description', 't-class-image', 't-class-actions'];
-        required?: boolean;
     };
     icon?: {
-        type: StringConstructor;
-        value?: string;
-        required?: boolean;
+        type: null;
+        value?: string | object;
     };
     image?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
 }

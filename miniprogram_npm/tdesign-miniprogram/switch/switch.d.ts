@@ -4,9 +4,9 @@ export default class Switch extends SuperComponent {
     behaviors: string[];
     properties: import("./type").TdSwitchProps;
     data: {
+        prefix: string;
         classPrefix: string;
-        isActive: boolean;
-        bodyStyle: string;
+        checked: boolean;
     };
     controlledProps: {
         key: string;
@@ -16,9 +16,6 @@ export default class Switch extends SuperComponent {
         value(val: any): void;
     };
     methods: {
-        switchChange(): void;
-        handleColorChange(): void;
-        onTapBackground(): void;
-        onTapDot(): void;
+        handleSwitch(): void;
     };
 }

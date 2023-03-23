@@ -1,9 +1,13 @@
 export interface TdRadioProps<T = RadioValue> {
-    align?: {
+    placement?: {
         type: StringConstructor;
         value?: 'left' | 'right';
     };
     allowUncheck?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    block?: {
         type: BooleanConstructor;
         value?: boolean;
     };
@@ -15,10 +19,6 @@ export interface TdRadioProps<T = RadioValue> {
         type: BooleanConstructor;
         value?: boolean;
     };
-    color?: {
-        type: StringConstructor;
-        value?: string;
-    };
     content?: {
         type: StringConstructor;
         value?: string;
@@ -26,6 +26,10 @@ export interface TdRadioProps<T = RadioValue> {
     contentDisabled?: {
         type: BooleanConstructor;
         value?: boolean;
+    };
+    style?: {
+        type: StringConstructor;
+        value?: string;
     };
     disabled?: {
         type: BooleanConstructor;
@@ -37,7 +41,7 @@ export interface TdRadioProps<T = RadioValue> {
     };
     icon?: {
         type: null;
-        value?: 'fill-circle' | 'stroke-line' | Array<string>;
+        value?: 'circle' | 'line' | Array<string>;
     };
     label?: {
         type: StringConstructor;

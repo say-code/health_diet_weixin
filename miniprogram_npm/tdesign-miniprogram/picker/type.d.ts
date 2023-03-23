@@ -1,4 +1,5 @@
 import { ButtonProps } from '../button/index';
+import { KeysType } from '../common/common';
 export interface TdPickerProps {
     autoClose?: {
         type: BooleanConstructor;
@@ -8,10 +9,6 @@ export interface TdPickerProps {
         type: null;
         value?: boolean | string | ButtonProps;
     };
-    columns: {
-        type: ArrayConstructor;
-        value?: Array<PickerColumn> | ((item: Array<PickerValue>) => Array<PickerColumn>);
-    };
     confirmBtn?: {
         type: null;
         value?: boolean | string | ButtonProps;
@@ -20,9 +17,9 @@ export interface TdPickerProps {
         type: BooleanConstructor;
         value?: boolean;
     };
-    renderLabel?: {
-        type: StringConstructor;
-        value?: (item: PickerColumnItem) => string;
+    keys?: {
+        type: ObjectConstructor;
+        value?: KeysType;
     };
     title?: {
         type: StringConstructor;
@@ -39,16 +36,6 @@ export interface TdPickerProps {
     visible?: {
         type: BooleanConstructor;
         value?: boolean;
-    };
-}
-export interface TdPickerItemProps {
-    format?: {
-        type: null;
-        value?: (option: PickerColumnItem) => string;
-    };
-    options?: {
-        type: ArrayConstructor;
-        value?: Array<PickerColumnItem>;
     };
 }
 export declare type PickerColumn = PickerColumnItem[];

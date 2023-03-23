@@ -6,19 +6,19 @@ const props = {
         type: Array,
     },
     icon: {
-        type: String,
-        value: '',
+        type: null,
+        value: true,
     },
     image: {
         type: String,
     },
-    title: {
-        type: String,
-        value: '',
-    },
     theme: {
         type: String,
         value: 'default',
+    },
+    title: {
+        type: String,
+        value: '',
     },
 };
 export default props;

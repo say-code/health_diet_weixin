@@ -8,7 +8,14 @@ export default class CheckBoxGroup extends SuperComponent {
         checkboxOptions: any[];
     };
     properties: {
-        customStyle: StringConstructor;
+        borderless: {
+            type: BooleanConstructor;
+            value: boolean;
+        };
+        style?: {
+            type: StringConstructor;
+            value?: string;
+        };
         disabled?: {
             type: BooleanConstructor;
             value?: boolean;
@@ -23,22 +30,22 @@ export default class CheckBoxGroup extends SuperComponent {
         };
         options?: {
             type: ArrayConstructor;
-            value?: import("../checkbox/type").CheckboxOption[];
+            value?: import("./type").CheckboxOption[];
         };
         value?: {
             type: ArrayConstructor;
-            value?: import("../checkbox/type").CheckboxGroupValue;
+            value?: import("./type").CheckboxGroupValue;
         };
         defaultValue?: {
             type: ArrayConstructor;
-            value?: import("../checkbox/type").CheckboxGroupValue;
+            value?: import("./type").CheckboxGroupValue;
         };
     };
     observers: {
         value(): void;
+        options(): void;
     };
     lifetimes: {
-        attached(): void;
         ready(): void;
     };
     controlledProps: {

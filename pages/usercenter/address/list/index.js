@@ -1,5 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { fetchDeliveryAddressList } from '../../../../services/address/fetchAddress';
+
+const req = require('../../../../utils/request');
+const app = getApp()
 import Toast from 'tdesign-miniprogram/toast/index';
 import { resolveAddress, rejectAddress } from './util';
 import { getAddressPromise } from '../edit/util';
@@ -28,6 +31,10 @@ Page({
     this.init();
   },
 
+  onShow() {
+    this.init();
+  },
+
   init() {
     this.getAddressList();
   },
@@ -48,14 +55,21 @@ Page({
   },
   getAddressList() {
     const { id } = this.data;
-    fetchDeliveryAddressList().then((addressList) => {
-      addressList.forEach((address) => {
-        if (address.id === id) {
-          address.checked = true;
-        }
+    req.get("/addressBook/list")
+      .then((res) => {
+        console.log(res.data)
+        let addressList = res.data
+        // var addresses = Array.of(addressList)
+        // console.log(addresses.forEach())
+        // addressList.forEach((address) => {
+        //   // if (address.id === id) {
+
+        //   // }
+        //   console.log(address)
+        //   address.checked = true;
+        // });
+        this.setData({ addressList: addressList });
       });
-      this.setData({ addressList });
-    });
   },
   getWXAddressHandle() {
     wx.chooseAddress({
@@ -113,6 +127,7 @@ Page({
     }
   },
   deleteAddressHandle(e) {
+    console.log(e)
     const { id } = e.currentTarget.dataset;
     this.setData({
       addressList: this.data.addressList.filter((address) => address.id !== id),

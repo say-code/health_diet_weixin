@@ -1,0 +1,84 @@
+/* pages/goods/myGoods/myGoods.wxss */
+/* page {
+  background-color: rgba(231, 230, 230, 0.616);
+} */
+
+image {
+  width: 100%;
+  height: 600rpx;
+  background-color: rgba(209, 209, 209, 0.336);
+}
+
+.divider-demo__title {
+  font-size: 28rpx;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 16rpx 32rpx;
+  line-height: 40rpx;
+}
+
+.divider-wrapper {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: rgba(0, 0, 0, 0.9);
+  padding-left: 32rpx;
+}
+
+.byTop {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 25rpx;
+  height: 200rpx;
+  background-color: white;
+}
+
+.tittle {
+  font-size: larger;
+  font-weight: 800;
+}
+
+.price {
+  color: rgb(240, 53, 53);
+  font-size: larger;
+  font-weight: 800;
+}
+
+.byMiddle {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 400rpx;
+  padding: 25rpx;
+  box-sizing: border-box;
+}
+
+.desc>span {
+  color: rgb(148, 147, 147);
+  width: 200rpx;
+
+}
+
+.desc {
+  font-size: 28rpx;
+}
+
+.buy-button {
+  margin: 0rpx;
+  width: 180rpx;
+  border-radius: 45rpx;
+
+}
+
+.flow-foot {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding-top: 8rpx;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0rpx;
+  background-color: white;
+  height: 100rpx;
+}

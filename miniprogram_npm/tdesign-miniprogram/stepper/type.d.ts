@@ -1,9 +1,13 @@
 export interface TdStepperProps {
-    disabled?: {
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    disableInput?: {
         type: BooleanConstructor;
         value?: boolean;
     };
-    disableInput?: {
+    disabled?: {
         type: BooleanConstructor;
         value?: boolean;
     };
@@ -27,9 +31,13 @@ export interface TdStepperProps {
         type: NumberConstructor;
         value?: number;
     };
+    size?: {
+        type: StringConstructor;
+        value?: string;
+    };
     theme?: {
         type: StringConstructor;
-        value?: 'normal' | 'grey';
+        value?: 'normal' | 'filled' | 'outline';
     };
     value?: {
         type: StringConstructor;

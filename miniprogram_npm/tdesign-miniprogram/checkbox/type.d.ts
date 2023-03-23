@@ -1,7 +1,11 @@
 export interface TdCheckboxProps {
-    align?: {
+    placement?: {
         type: StringConstructor;
         value?: 'left' | 'right';
+    };
+    block?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
     checkAll?: {
         type: BooleanConstructor;
@@ -15,10 +19,6 @@ export interface TdCheckboxProps {
         type: BooleanConstructor;
         value?: boolean;
     };
-    color?: {
-        type: StringConstructor;
-        value?: string;
-    };
     content?: {
         type: StringConstructor;
         value?: string;
@@ -26,6 +26,10 @@ export interface TdCheckboxProps {
     contentDisabled?: {
         type: BooleanConstructor;
         value?: boolean;
+    };
+    style?: {
+        type: StringConstructor;
+        value?: string;
     };
     disabled?: {
         type: BooleanConstructor;
@@ -36,8 +40,8 @@ export interface TdCheckboxProps {
         value?: ['t-class', 't-class-icon', 't-class-label', 't-class-content', 't-class-border'];
     };
     icon?: {
-        type: ArrayConstructor;
-        value?: Array<string>;
+        type: null;
+        value?: 'circle' | 'line' | 'rectangle' | string[];
     };
     indeterminate?: {
         type: BooleanConstructor;
@@ -64,42 +68,7 @@ export interface TdCheckboxProps {
         value?: boolean;
     };
     value?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor>;
-        value?: string | number;
+        type: null;
+        value?: string | number | boolean;
     };
 }
-export interface TdCheckboxGroupProps {
-    disabled?: {
-        type: BooleanConstructor;
-        value?: boolean;
-    };
-    max?: {
-        type: NumberConstructor;
-        value?: number;
-    };
-    name?: {
-        type: StringConstructor;
-        value?: string;
-    };
-    options?: {
-        type: ArrayConstructor;
-        value?: Array<CheckboxOption>;
-    };
-    value?: {
-        type: ArrayConstructor;
-        value?: CheckboxGroupValue;
-    };
-    defaultValue?: {
-        type: ArrayConstructor;
-        value?: CheckboxGroupValue;
-    };
-}
-export declare type CheckboxOption = string | number | CheckboxOptionObj;
-export interface CheckboxOptionObj {
-    label?: string;
-    value?: string | number;
-    disabled?: boolean;
-    checkAll?: true;
-}
-export declare type CheckboxGroupValue = Array<string | number>;

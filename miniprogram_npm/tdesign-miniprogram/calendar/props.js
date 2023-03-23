@@ -1,6 +1,14 @@
 const props = {
+    autoClose: {
+        type: Boolean,
+        value: true,
+    },
     confirmBtn: {
         type: null,
+        value: '',
+    },
+    style: {
+        type: String,
         value: '',
     },
     firstDayOfWeek: {
@@ -11,10 +19,10 @@ const props = {
         type: null,
     },
     maxDate: {
-        type: null,
+        type: Number,
     },
     minDate: {
-        type: null,
+        type: Number,
     },
     title: {
         type: String,
@@ -23,7 +31,15 @@ const props = {
         type: String,
         value: 'single',
     },
+    usePopup: {
+        type: Boolean,
+        value: true,
+    },
     value: {
+        type: null,
+        value: null,
+    },
+    defaultValue: {
         type: null,
     },
     visible: {

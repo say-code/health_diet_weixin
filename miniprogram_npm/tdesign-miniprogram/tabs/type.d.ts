@@ -4,15 +4,19 @@ export interface TdTabsProps {
         type: ObjectConstructor;
         value?: TabAnimation;
     };
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-item', 't-class-active', 't-class-track'];
     };
-    placement?: {
-        type: StringConstructor;
-        value?: 'left' | 'top';
-    };
     showBottomLine?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    spaceEvenly?: {
         type: BooleanConstructor;
         value?: boolean;
     };
@@ -28,33 +32,15 @@ export interface TdTabsProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    theme?: {
+        type: StringConstructor;
+        value?: 'line' | 'tag' | 'card';
+    };
     value?: {
         type: null;
         value?: TabValue;
     };
     defaultValue?: {
-        type: null;
-        value?: TabValue;
-    };
-}
-export interface TdTabPanelProps {
-    destroyOnHide?: {
-        type: BooleanConstructor;
-        value?: boolean;
-    };
-    disabled?: {
-        type: BooleanConstructor;
-        value?: boolean;
-    };
-    label?: {
-        type: StringConstructor;
-        value?: string;
-    };
-    panel?: {
-        type: StringConstructor;
-        value?: string;
-    };
-    value?: {
         type: null;
         value?: TabValue;
     };

@@ -1,8 +1,4 @@
 export interface TdSwitchProps {
-    colors?: {
-        type: ArrayConstructor;
-        value?: string[];
-    };
     customValue?: {
         type: ArrayConstructor;
         value?: Array<SwitchValue>;
@@ -11,9 +7,13 @@ export interface TdSwitchProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    icon?: {
+        type: ArrayConstructor;
+        value?: string[];
+    };
     label?: {
-        type: StringConstructor;
-        value?: string;
+        type: ArrayConstructor;
+        value?: string[];
     };
     loading?: {
         type: BooleanConstructor;
@@ -23,14 +23,16 @@ export interface TdSwitchProps {
         type: StringConstructor;
         value?: 'small' | 'medium' | 'large';
     };
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
     value?: {
-        type: BooleanConstructor;
-        optionalTypes: Array<NumberConstructor | StringConstructor>;
+        type: null;
         value?: SwitchValue;
     };
     defaultValue?: {
-        type: BooleanConstructor;
-        optionalTypes: Array<NumberConstructor | StringConstructor>;
+        type: null;
         value?: SwitchValue;
     };
 }

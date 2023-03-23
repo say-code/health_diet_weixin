@@ -1,3 +1,4 @@
+/// <reference types="miniprogram-api-typings" />
 import { SuperComponent } from '../common/src/index';
 export default class Tag extends SuperComponent {
     data: {
@@ -8,15 +9,14 @@ export default class Tag extends SuperComponent {
     };
     properties: import("./type").TdTagProps;
     externalClasses: string[];
-    options: {
-        multipleSlots: boolean;
-    };
+    options: WechatMiniprogram.Component.ComponentOptions;
     lifetimes: {
         attached(): void;
     };
     observers: {
         'size, shape, theme, variant, closable, disabled'(): void;
         maxWidth(): void;
+        icon(v: any): void;
     };
     methods: {
         setClass(): void;

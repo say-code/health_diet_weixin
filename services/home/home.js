@@ -9,15 +9,15 @@ function mockFetchHome() {
       swiper: genSwiperImageList(),
       tabList: [
         {
-          text: '早餐',
+          text: '健康',
           key: 0,
         },
         {
-          text: '中餐',
+          text: '减脂',
           key: 1,
         },
         {
-          text: '晚餐',
+          text: '三高',
           key: 2,
         },
         // {

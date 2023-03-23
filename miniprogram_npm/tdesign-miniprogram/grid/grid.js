@@ -14,12 +14,13 @@ let Grid = class Grid extends SuperComponent {
         super(...arguments);
         this.externalClasses = ['t-class'];
         this.relations = {
-            './grid-item': {
+            '../grid-item/grid-item': {
                 type: 'descendant',
             },
         };
         this.properties = props;
         this.data = {
+            prefix,
             classPrefix: name,
             contentStyle: '',
         };
@@ -36,15 +37,10 @@ let Grid = class Grid extends SuperComponent {
             attached() {
                 this.updateContentStyle();
             },
-            created() {
-                this.children = [];
-            },
         };
         this.methods = {
             doForChild(action) {
-                var _a;
-                const children = (_a = this.getRelationNodes('./grid-item')) !== null && _a !== void 0 ? _a : [];
-                children.forEach(action);
+                this.$children.forEach(action);
             },
             updateContentStyle() {
                 const contentStyles = [];

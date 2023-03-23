@@ -17,6 +17,8 @@ import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import { trimSingleValue, trimValue } from './tool';
 import props from './props';
+import { getRect } from '../common/utils';
+import Bus from '../common/bus';
 const { prefix } = config;
 const name = `${prefix}-slider`;
 let Slider = class Slider extends SuperComponent {
@@ -53,6 +55,7 @@ let Slider = class Slider extends SuperComponent {
             scaleArray: [],
             scaleTextArray: [],
             prefix,
+            isVisibleToScreenReader: false,
         };
         this.observers = {
             value(newValue) {
@@ -60,29 +63,44 @@ let Slider = class Slider extends SuperComponent {
             },
             _value(newValue) {
                 const { min, max, range } = this.properties;
-                const { maxRange, blockSize } = this.data;
-                const fullLineWidth = maxRange + Number(blockSize);
+                const { maxRange } = this.data;
                 if (range) {
-                    const left = (fullLineWidth * (newValue[0] - Number(min))) / (Number(max) - Number(min));
-                    const right = (fullLineWidth * (Number(max) - newValue[1])) / (Number(max) - Number(min));
-                    this.setDotStyle(left, right);
+                    const left = (maxRange * (newValue[0] - Number(min))) / (Number(max) - Number(min));
+                    const right = (maxRange * (Number(max) - newValue[1])) / (Number(max) - Number(min));
+                    this.setLineStyle(left, right);
                 }
                 else {
-                    const left = (fullLineWidth * (Number(newValue) - Number(min))) / (Number(max) - Number(min));
-                    this.setDotStyle(left, null);
-                    this.getSingleBarWidth(newValue);
+                    this.setSingleBarWidth(newValue);
                 }
+                this.setData({
+                    isVisibleToScreenReader: true,
+                });
+                setTimeout(() => {
+                    this.setData({
+                        isVisibleToScreenReader: false,
+                    });
+                }, 2e3);
             },
             marks(val) {
-                this.handleMask(val);
+                if (this.data.initialLeft != null) {
+                    this.handleMask(val);
+                }
+                else {
+                    this.bus.on('initial', () => this.handleMask(val));
+                }
             },
         };
-    }
-    attached() {
-        const { value } = this.properties;
-        if (!value)
-            this.handlePropsChange(0);
-        this.getInitialStyle();
+        this.lifetimes = {
+            created() {
+                this.bus = new Bus();
+            },
+            attached() {
+                const { value } = this.properties;
+                if (!value)
+                    this.handlePropsChange(0);
+                this.getInitialStyle();
+            },
+        };
     }
     triggerValue(value) {
         this._trigger('change', {
@@ -103,10 +121,19 @@ let Slider = class Slider extends SuperComponent {
         setValueAndTrigger();
     }
     handleMask(marks) {
+        const calcPos = (arr) => {
+            const { theme } = this.properties;
+            const { blockSize, maxRange } = this.data;
+            const margin = theme === 'capsule' ? blockSize / 2 : 0;
+            return arr.map((item) => ({
+                val: item,
+                left: Math.round((item / 100) * maxRange) + margin,
+            }));
+        };
         if ((marks === null || marks === void 0 ? void 0 : marks.length) && Array.isArray(marks)) {
             this.setData({
                 isScale: true,
-                scaleArray: marks,
+                scaleArray: calcPos(marks),
                 scaleTextArray: [],
             });
         }
@@ -115,67 +142,42 @@ let Slider = class Slider extends SuperComponent {
             const scaleTextArray = scaleArray.map((item) => marks[item]);
             this.setData({
                 isScale: scaleArray.length > 0,
-                scaleArray,
+                scaleArray: calcPos(scaleArray),
                 scaleTextArray,
             });
         }
     }
-    getSingleBarWidth(value) {
-        const { max, min } = this.properties;
-        const width = `${((Number(value) - Number(min)) * 100) / (Number(max) - Number(min))}%`;
+    setSingleBarWidth(value) {
+        const { max, min, theme } = this.properties;
+        const { maxRange, blockSize } = this.data;
+        const halfBlock = theme === 'capsule' ? Number(blockSize) / 2 : 0;
+        const percentage = (Number(value) - Number(min)) / (Number(max) - Number(min));
+        const width = percentage * maxRange + halfBlock;
         this.setData({
-            lineBarWidth: width,
-        });
-    }
-    getSelectorQuery(id) {
-        return new Promise((resolve, reject) => {
-            wx.createSelectorQuery()
-                .in(this)
-                .select(`#${id}`)
-                .boundingClientRect((rect) => {
-                if (rect) {
-                    resolve(rect);
-                }
-                else {
-                    reject(rect);
-                }
-            })
-                .exec();
+            lineBarWidth: `${width}px`,
         });
     }
     getInitialStyle() {
         return __awaiter(this, void 0, void 0, function* () {
-            const line = yield this.getSelectorQuery('sliderLine');
+            const line = yield getRect(this, '#sliderLine');
             const { blockSize } = this.data;
+            const { theme } = this.properties;
             const halfBlock = Number(blockSize) / 2;
+            let maxRange = line.right - line.left;
+            let initialLeft = line.left;
+            let initialRight = line.right;
+            if (theme === 'capsule') {
+                maxRange = maxRange - Number(blockSize) - 6;
+                initialLeft -= halfBlock;
+                initialRight -= halfBlock;
+            }
             this.setData({
-                maxRange: line.right - line.left - Number(blockSize),
-                initialLeft: line.left - halfBlock,
-                initialRight: line.right + halfBlock,
+                maxRange,
+                initialLeft,
+                initialRight,
             });
+            this.bus.emit('initial');
         });
-    }
-    setDotStyle(left, right) {
-        const { range } = this.properties;
-        const { blockSize } = this.data;
-        const halfBlock = Number(blockSize) / 2;
-        if (left !== null) {
-            this.setData({
-                activeLeft: left - halfBlock,
-            });
-        }
-        if (right !== null) {
-            this.setData({
-                activeRight: right - halfBlock,
-            });
-        }
-        if (range) {
-            this.setLineStyle();
-            const [a, b] = this.data._value;
-            this.setData({
-                dotTopValue: [a, b],
-            });
-        }
     }
     stepValue(value) {
         const { step, min, max } = this.properties;
@@ -193,69 +195,64 @@ let Slider = class Slider extends SuperComponent {
     }
     getSingleChangeValue(e) {
         const { min, max } = this.properties;
-        const { initialLeft, maxRange, blockSize } = this.data;
+        const { initialLeft, maxRange } = this.data;
         const [touch] = e.changedTouches;
         const { pageX } = touch;
-        const halfBlock = Number(blockSize) / 2;
-        const currentLeft = pageX - initialLeft - halfBlock;
+        const currentLeft = pageX - initialLeft;
         let value = 0;
         if (currentLeft <= 0) {
             value = Number(min);
         }
-        else if (currentLeft >= maxRange + Number(blockSize)) {
+        else if (currentLeft >= maxRange) {
             value = Number(max);
         }
         else {
-            value = Math.round((currentLeft / (maxRange + Number(blockSize))) * (Number(max) - Number(min)) + Number(min));
+            value = Math.round((currentLeft / maxRange) * (Number(max) - Number(min)) + Number(min));
         }
         return this.stepValue(value);
     }
     convertPosToValue(posValue, dir) {
-        const { maxRange, blockSize } = this.data;
+        const { maxRange } = this.data;
         const { max, min } = this.properties;
-        const fullLineWidth = maxRange + blockSize;
         return dir === 0
-            ? (posValue / fullLineWidth) * (Number(max) - Number(min)) + Number(min)
-            : Number(max) - (posValue / fullLineWidth) * (Number(max) - Number(min));
+            ? (posValue / maxRange) * (Number(max) - Number(min)) + Number(min)
+            : Number(max) - (posValue / maxRange) * (Number(max) - Number(min));
     }
     onLineTap(e) {
-        const { disabled } = this.properties;
+        const { disabled, theme } = this.properties;
         const { initialLeft, initialRight, maxRange, blockSize } = this.data;
         if (disabled)
             return;
         const [touch] = e.changedTouches;
         const { pageX } = touch;
-        const halfBlock = Number(blockSize) / 2;
-        const currentLeft = pageX - initialLeft - halfBlock;
+        const halfBlock = theme === 'capsule' ? Number(blockSize) / 2 : 0;
+        const currentLeft = pageX - initialLeft;
         if (currentLeft < 0 || currentLeft > maxRange + Number(blockSize))
             return;
-        this.getSelectorQuery('leftDot').then((leftDot) => {
-            this.getSelectorQuery('rightDot').then((rightDot) => {
-                const distanceLeft = Math.abs(pageX - leftDot.left - halfBlock);
-                const distanceRight = Math.abs(rightDot.left - pageX + halfBlock);
-                const isMoveLeft = distanceLeft < distanceRight;
-                if (isMoveLeft) {
-                    const left = pageX - initialLeft - halfBlock;
-                    const leftValue = this.convertPosToValue(left, 0);
-                    this.triggerValue([this.stepValue(leftValue), this.data._value[1]]);
-                }
-                else {
-                    const right = -(pageX - initialRight) - halfBlock;
-                    const rightValue = this.convertPosToValue(right, 1);
-                    this.triggerValue([this.data._value[0], this.stepValue(rightValue)]);
-                }
-            });
+        Promise.all([getRect(this, '#leftDot'), getRect(this, '#rightDot')]).then(([leftDot, rightDot]) => {
+            const distanceLeft = Math.abs(pageX - leftDot.left - halfBlock);
+            const distanceRight = Math.abs(rightDot.left - pageX + halfBlock);
+            const isMoveLeft = distanceLeft < distanceRight;
+            if (isMoveLeft) {
+                const left = pageX - initialLeft;
+                const leftValue = this.convertPosToValue(left, 0);
+                this.triggerValue([this.stepValue(leftValue), this.data._value[1]]);
+            }
+            else {
+                const right = -(pageX - initialRight);
+                const rightValue = this.convertPosToValue(right, 1);
+                this.triggerValue([this.data._value[0], this.stepValue(rightValue)]);
+            }
         });
     }
     onTouchMoveLeft(e) {
         const { disabled } = this.properties;
-        const { initialLeft, blockSize, _value } = this.data;
+        const { initialLeft, _value } = this.data;
         if (disabled)
             return;
         const [touch] = e.changedTouches;
         const { pageX } = touch;
-        const halfBlock = Number(blockSize) / 2;
-        const currentLeft = pageX - initialLeft - halfBlock;
+        const currentLeft = pageX - initialLeft;
         const newData = [..._value];
         const leftValue = this.convertPosToValue(currentLeft, 0);
         newData[0] = this.stepValue(leftValue);
@@ -263,34 +260,40 @@ let Slider = class Slider extends SuperComponent {
     }
     onTouchMoveRight(e) {
         const { disabled } = this.properties;
-        const { initialRight, blockSize, _value } = this.data;
+        const { initialRight, _value } = this.data;
         if (disabled)
             return;
         const [touch] = e.changedTouches;
         const { pageX } = touch;
-        const halfBlock = Number(blockSize) / 2;
-        const currentRight = -(pageX - initialRight) - halfBlock;
+        const currentRight = -(pageX - initialRight);
         const newData = [..._value];
         const rightValue = this.convertPosToValue(currentRight, 1);
         newData[1] = this.stepValue(rightValue);
         this.triggerValue(newData);
     }
-    setLineStyle() {
-        const { activeLeft, activeRight, maxRange, blockSize } = this.data;
-        const halfBlock = Number(blockSize) / 2;
-        if (activeLeft + activeRight <= maxRange) {
+    setLineStyle(left, right) {
+        const { theme } = this.properties;
+        const { blockSize, maxRange } = this.data;
+        const halfBlock = theme === 'capsule' ? Number(blockSize) / 2 : 0;
+        const [a, b] = this.data._value;
+        const cut = (v) => parseInt(v, 10);
+        this.setData({
+            dotTopValue: [a, b],
+        });
+        if (left + right <= maxRange) {
             this.setData({
-                lineLeft: activeLeft + halfBlock,
-                lineRight: activeRight + halfBlock,
+                lineLeft: cut(left + halfBlock),
+                lineRight: cut(right + halfBlock),
             });
         }
         else {
             this.setData({
-                lineLeft: maxRange + halfBlock - activeRight,
-                lineRight: maxRange - activeLeft + halfBlock * 1.5,
+                lineLeft: cut(maxRange + halfBlock - right),
+                lineRight: cut(maxRange - left + halfBlock * 1.5),
             });
         }
     }
+    onTouchEnd() { }
 };
 Slider = __decorate([
     wxComponent()

@@ -1,4 +1,8 @@
 export interface TdActionSheetProps {
+    align?: {
+        type: StringConstructor;
+        value?: 'center' | 'left';
+    };
     cancelText?: {
         type: StringConstructor;
         value?: string;
@@ -6,6 +10,10 @@ export interface TdActionSheetProps {
     count?: {
         type: NumberConstructor;
         value?: number;
+    };
+    description?: {
+        type: StringConstructor;
+        value?: string;
     };
     items: {
         type: ArrayConstructor;

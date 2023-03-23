@@ -1,30 +1,45 @@
 export interface TdNoticeBarProps {
     content?: {
+        type: null;
+        value?: null;
+    };
+    style?: {
         type: StringConstructor;
         value?: string;
     };
-    extra?: {
+    direction?: {
+        type: StringConstructor;
+        value?: 'horizontal' | 'vertical';
+    };
+    externalClasses?: {
+        type: ArrayConstructor;
+        value?: ['t-class', 't-class-content', 't-class-prefix-icon', 't-class-operation', 't-class-suffix-icon'];
+    };
+    operation?: {
         type: StringConstructor;
         value?: string;
     };
     marquee?: {
-        type: ObjectConstructor;
-        optionalTypes: Array<BooleanConstructor>;
-        value?: DrawMarquee | boolean;
+        type: null;
+        value?: boolean | DrawMarquee;
     };
     prefixIcon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: boolean | string | object;
     };
     suffixIcon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: string | object;
     };
     theme?: {
         type: StringConstructor;
         value?: 'info' | 'success' | 'warning' | 'error';
     };
     visible?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    defaultVisible?: {
         type: BooleanConstructor;
         value?: boolean;
     };

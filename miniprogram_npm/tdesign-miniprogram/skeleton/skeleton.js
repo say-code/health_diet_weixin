@@ -7,18 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
-import { isNumber } from '../common/utils';
+import { isNumber, classNames } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-skeleton`;
 const ThemeMap = {
-    avatar: [{ type: 'circle', height: '64px', width: '64px' }],
-    image: [{ type: 'rect', height: '64px', width: '64px' }],
+    avatar: [{ type: 'circle', size: '96rpx' }],
+    image: [{ type: 'rect', size: '144rpx' }],
     text: [
-        1,
         [
-            { width: '24%', height: '16px', marginRight: '16px' },
-            { width: '76%', height: '16px' },
+            { width: '24%', height: '32rpx', marginRight: '32rpx' },
+            { width: '76%', height: '32rpx' },
         ],
+        1,
     ],
     paragraph: [1, 1, 1, { width: '55%' }],
 };
@@ -27,6 +27,11 @@ let Skeleton = class Skeleton extends SuperComponent {
         super(...arguments);
         this.externalClasses = [`${prefix}-class`, `${prefix}-class-col`, `${prefix}-class-row`];
         this.properties = props;
+        this.data = {
+            prefix,
+            classPrefix: name,
+            parsedRowcols: [],
+        };
         this.observers = {
             rowCol() {
                 this.init();
@@ -71,7 +76,11 @@ let Skeleton = class Skeleton extends SuperComponent {
                 });
             },
             getColItemClass(obj) {
-                return [`${name}__col`, `${name}--type-${obj.type || 'text'}`, `${name}--animation-${this.properties.animation}`];
+                return classNames([
+                    `${name}__col`,
+                    `${name}--type-${obj.type || 'text'}`,
+                    `${name}--animation-${this.properties.animation}`,
+                ]);
             },
             getColItemStyle(obj) {
                 const styleName = [
@@ -99,11 +108,6 @@ let Skeleton = class Skeleton extends SuperComponent {
                 });
                 return style;
             },
-        };
-        this.data = {
-            prefix,
-            classPrefix: name,
-            parsedRowcols: [],
         };
     }
 };

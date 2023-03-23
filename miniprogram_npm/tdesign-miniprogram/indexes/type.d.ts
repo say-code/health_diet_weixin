@@ -1,13 +1,23 @@
 export interface TdIndexesProps {
-    height?: {
-        type: NumberConstructor;
-        value?: number;
-        required?: boolean;
+    style?: {
+        type: StringConstructor;
+        value?: string;
     };
-    list: {
+    indexList?: {
+        type: ArrayConstructor;
+        value?: string[] | number[];
+    };
+    list?: {
         type: ArrayConstructor;
         value?: ListItem[];
-        required?: boolean;
+    };
+    sticky?: {
+        type: BooleanConstructor;
+        value?: Boolean;
+    };
+    stickyOffset?: {
+        type: NumberConstructor;
+        value?: number;
     };
 }
 export interface ListItem {

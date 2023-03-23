@@ -1,6 +1,7 @@
-import { SuperComponent } from '../common/src/index';
+import { SuperComponent, RelationsOptions } from '../common/src/index';
 export default class CellGroup extends SuperComponent {
     externalClasses: string[];
+    relations: RelationsOptions;
     options: {
         addGlobalClass: boolean;
     };
@@ -8,5 +9,8 @@ export default class CellGroup extends SuperComponent {
     data: {
         prefix: string;
         classPrefix: string;
+    };
+    methods: {
+        updateLastChid(): void;
     };
 }

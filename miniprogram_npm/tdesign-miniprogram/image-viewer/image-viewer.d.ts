@@ -2,6 +2,10 @@ import { SuperComponent } from '../common/src/index';
 export default class ImageViewer extends SuperComponent {
     externalClasses: string[];
     properties: {
+        style?: {
+            type: StringConstructor;
+            value?: string;
+        };
         backgroundColor?: {
             type: StringConstructor;
             optionalTypes: NumberConstructor[];
@@ -20,12 +24,12 @@ export default class ImageViewer extends SuperComponent {
             value?: boolean;
         };
         deleteBtn?: {
-            type: BooleanConstructor;
-            value: false;
+            type: null;
+            value?: string | boolean | object;
         };
         closeBtn?: {
-            type: BooleanConstructor;
-            value: false;
+            type: null;
+            value?: string | boolean | object;
         };
         visible?: {
             type: BooleanConstructor;
@@ -42,7 +46,8 @@ export default class ImageViewer extends SuperComponent {
         currentSwiperIndex: number;
         windowHeight: number;
         windowWidth: number;
-        imagesShape: {};
+        swiperStyle: {};
+        imagesStyle: {};
     };
     options: {
         multipleSlots: boolean;
@@ -54,6 +59,8 @@ export default class ImageViewer extends SuperComponent {
     ready(): void;
     observers: {
         visible(value: any): void;
+        closeBtn(v: any): void;
+        deleteBtn(v: any): void;
     };
     methods: {
         saveScreenSize(): void;
@@ -74,7 +81,7 @@ export default class ImageViewer extends SuperComponent {
         };
         onImageLoadSuccess(e: WechatMiniprogram.TouchEvent): void;
         onSwiperChange(e: WechatMiniprogram.TouchEvent): void;
-        onClose(e: WechatMiniprogram.TouchEvent): void;
+        onClose(e: any): void;
         onDelete(): void;
     };
 }

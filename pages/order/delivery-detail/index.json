@@ -6,6 +6,6 @@
     "t-steps": "tdesign-miniprogram/steps/steps",
     "t-image": "/components/webp-image/index",
     "t-icon": "tdesign-miniprogram/icon/icon",
-    "t-step": "tdesign-miniprogram/steps/step-item"
+    "t-step": "tdesign-miniprogram/step-item/step-item"
   }
 }

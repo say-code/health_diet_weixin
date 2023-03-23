@@ -24,6 +24,11 @@ let Cell = class Cell extends SuperComponent {
             `${prefix}-class-right`,
             `${prefix}-class-right-icon`,
         ];
+        this.relations = {
+            '../cell-group/cell-group': {
+                type: 'parent',
+            },
+        };
         this.options = {
             multipleSlots: true,
         };
@@ -31,6 +36,7 @@ let Cell = class Cell extends SuperComponent {
         this.data = {
             prefix,
             classPrefix: name,
+            isLastChild: false,
         };
     }
     onClick(e) {

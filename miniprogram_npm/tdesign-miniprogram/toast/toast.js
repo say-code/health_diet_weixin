@@ -8,6 +8,7 @@ import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
 import transition from '../mixins/transition';
+import { calcIcon } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-toast`;
 let Toast = class Toast extends SuperComponent {
@@ -32,9 +33,10 @@ let Toast = class Toast extends SuperComponent {
                 const iconMap = {
                     loading: 'loading',
                     success: 'check-circle',
-                    fail: 'error-circle',
+                    warning: 'error-circle',
+                    error: 'close-circle',
                 };
-                const typeMapIcon = iconMap[options === null || options === void 0 ? void 0 : options.theme] || '';
+                const typeMapIcon = iconMap[options === null || options === void 0 ? void 0 : options.theme];
                 const defaultOptions = {
                     direction: props.direction.value,
                     duration: props.duration.value,
@@ -44,7 +46,7 @@ let Toast = class Toast extends SuperComponent {
                     preventScrollThrough: props.preventScrollThrough.value,
                     theme: props.theme.value,
                 };
-                const data = Object.assign(Object.assign(Object.assign({}, defaultOptions), options), { visible: true, typeMapIcon });
+                const data = Object.assign(Object.assign(Object.assign({}, defaultOptions), options), { visible: true, isLoading: (options === null || options === void 0 ? void 0 : options.theme) === 'loading', _icon: calcIcon(typeMapIcon !== null && typeMapIcon !== void 0 ? typeMapIcon : options.icon) });
                 const { duration } = data;
                 this.setData(data);
                 if (duration > 0) {
@@ -66,6 +68,7 @@ let Toast = class Toast extends SuperComponent {
                 }
                 this.triggerEvent('destory');
             },
+            loop() { },
         };
     }
     detached() {

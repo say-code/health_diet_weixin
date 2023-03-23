@@ -6,7 +6,15 @@ export default class CountDown extends SuperComponent {
         time(): void;
     };
     data: {
+        prefix: string;
         classPrefix: string;
+        timeDataUnit: {
+            DD: string;
+            HH: string;
+            mm: string;
+            ss: string;
+            SSS: string;
+        };
         timeData: import("./utils").TimeData;
         formattedTime: string;
     };

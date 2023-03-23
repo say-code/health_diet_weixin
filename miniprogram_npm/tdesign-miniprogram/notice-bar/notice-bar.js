@@ -5,11 +5,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { SuperComponent, wxComponent } from '../common/src/index';
-import { getRect, getAnimationFrame } from '../common/utils';
+import { getRect, getAnimationFrame, calcIcon } from '../common/utils';
 import props from './props';
 import config from '../common/config';
 const { prefix } = config;
 const name = `${prefix}-notice-bar`;
+const THEME_ICON = {
+    info: 'info-circle-filled',
+    success: 'check-circle-filled',
+    warning: 'info-circle-filled',
+    error: 'error-circle-filled',
+};
 let NoticeBar = class NoticeBar extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -17,7 +23,7 @@ let NoticeBar = class NoticeBar extends SuperComponent {
             `${prefix}-class`,
             `${prefix}-class-content`,
             `${prefix}-class-prefix-icon`,
-            `${prefix}-class-extra`,
+            `${prefix}-class-operation`,
             `${prefix}-class-suffix-icon`,
         ];
         this.options = {
@@ -50,6 +56,18 @@ let NoticeBar = class NoticeBar extends SuperComponent {
                     this.clearNoticeBarAnimation();
                 }
             },
+            prefixIcon(prefixIcon) {
+                this.setPrefixIcon(prefixIcon);
+            },
+            suffixIcon(v) {
+                this.setData({
+                    _suffixIcon: calcIcon(v),
+                });
+            },
+            content() {
+                this.clearNoticeBarAnimation();
+                this.initAnimation();
+            },
         };
         this.lifetimes = {
             created() {
@@ -69,7 +87,7 @@ let NoticeBar = class NoticeBar extends SuperComponent {
             initAnimation() {
                 const warpID = `.${name}__content-wrap`;
                 const nodeID = `.${name}__content`;
-                getAnimationFrame(() => {
+                getAnimationFrame(this, () => {
                     Promise.all([getRect(this, nodeID), getRect(this, warpID)]).then(([nodeRect, wrapRect]) => {
                         const { marquee } = this.properties;
                         if (nodeRect == null || wrapRect == null || !nodeRect.width || !wrapRect.width) {
@@ -105,7 +123,7 @@ let NoticeBar = class NoticeBar extends SuperComponent {
                         .step()
                         .export(),
                 });
-                getAnimationFrame(() => {
+                getAnimationFrame(this, () => {
                     this.setData({
                         animationData: wx
                             .createAnimation({ duration: durationTime, timingFunction: 'linear', delay: delayTime })
@@ -129,29 +147,18 @@ let NoticeBar = class NoticeBar extends SuperComponent {
             },
             show() {
                 this.clearNoticeBarAnimation();
-                this.setIcon();
+                this.setPrefixIcon(this.properties.prefixIcon);
                 this.initAnimation();
             },
             clearNoticeBarAnimation() {
                 this.nextAnimationContext && clearTimeout(this.nextAnimationContext);
                 this.nextAnimationContext = null;
             },
-            setIcon() {
-                const { prefixIcon, theme } = this.properties;
-                if (prefixIcon) {
-                    this.setData({
-                        iconName: prefixIcon !== 'null' ? `${prefixIcon}` : '',
-                    });
-                }
-                else {
-                    const themeNoticeBar = {
-                        info: 'error-circle-filled',
-                        success: 'check-circle-filled',
-                        warning: 'error-circle-filled',
-                        error: 'close-circle-filled',
-                    };
-                    this.setData({ iconName: themeNoticeBar[theme] });
-                }
+            setPrefixIcon(v) {
+                const { theme } = this.properties;
+                this.setData({
+                    _prefixIcon: calcIcon(v, THEME_ICON[theme]),
+                });
             },
             clickPrefixIcon() {
                 this.triggerEvent('click', { trigger: 'prefix-icon' });
@@ -162,8 +169,8 @@ let NoticeBar = class NoticeBar extends SuperComponent {
             clickSuffixIcon() {
                 this.triggerEvent('click', { trigger: 'suffix-icon' });
             },
-            clickExtra() {
-                this.triggerEvent('click', { trigger: 'extra' });
+            clickOperation() {
+                this.triggerEvent('click', { trigger: 'operation' });
             },
         };
     }

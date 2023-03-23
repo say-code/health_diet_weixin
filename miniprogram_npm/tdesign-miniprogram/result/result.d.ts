@@ -12,7 +12,10 @@ export default class extends SuperComponent {
     lifetimes: {
         ready(): void;
     };
+    observers: {
+        'icon, theme'(): void;
+    };
     methods: {
-        setIcon(): void;
+        initIcon(): void;
     };
 }

@@ -1,25 +1,35 @@
-import { TreeOptionData } from '../common/common';
+import { TreeOptionData, KeysType } from '../common/common';
 export interface TdCascaderProps<CascaderOption extends TreeOptionData = TreeOptionData> {
     closeBtn?: {
         type: BooleanConstructor;
         value?: boolean;
     };
+    keys?: {
+        type: ObjectConstructor;
+        value?: KeysType;
+    };
     options?: {
         type: ArrayConstructor;
         value?: Array<CascaderOption>;
+    };
+    subTitles?: {
+        type: ArrayConstructor;
+        value?: Array<string>;
+    };
+    theme?: {
+        type: StringConstructor;
+        value?: 'step' | 'tab';
     };
     title?: {
         type: StringConstructor;
         value?: string;
     };
     value?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor>;
+        type: null;
         value?: string | number;
     };
     defaultValue?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor>;
+        type: null;
         value?: string | number;
     };
     visible?: {

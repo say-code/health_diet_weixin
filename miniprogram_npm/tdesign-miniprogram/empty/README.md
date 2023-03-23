@@ -1,5 +1,5 @@
 ---
-title: Empty 空内容
+title: Empty 空状态
 description: 用于空状态时的占位提示。
 spline: data
 isComponent: true
@@ -18,30 +18,29 @@ isComponent: true
 
 ## 代码演示
 
-### 图标空状态
+### 类型
+
+图标空状态
 
 {{ base }}
 
-### 自定义图片空状态
+自定义图片空状态
 
 {{ imageEmpty }}
 
-### 带操作空状态
+带操作空状态
 
 {{ buttonEmpty }}
 
-### 空页面
 
-{{ pageEmpty }}
 
 ## API
-
 ### Empty Props
 
-| 名称             | 类型          | 默认值 | 说明                                                                                                                                                | 必传 |
-| ---------------- | ------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| action           | Slot          | -      | 操作按钮                                                                                                                                            | N    |
-| description      | String / Slot | -      | 描述文字                                                                                                                                            | N    |
-| external-classes | Array         | -      | 组件类名，分别用于设置 组件外层类名、文本描述类名、图片类名、操作按钮类名。`['t-class', 't-class-description', 't-class-image', 't-class-actions']` | N    |
-| icon             | String        | -      | 图标名称                                                                                                                                            | N    |
-| image            | String / Slot | -      | 图片地址                                                                                                                                            | N    |
+名称 | 类型 | 默认值 | 说明 | 必传
+-- | -- | -- | -- | --
+action | Slot | - | 操作按钮 | N
+description | String / Slot | - | 描述文字 | N
+external-classes | Array | - | 组件类名，分别用于设置 组件外层类名、文本描述类名、图片类名、操作按钮类名。`['t-class', 't-class-description', 't-class-image', 't-class-actions']` | N
+icon | String / Object | - | 图标名称。值为字符串表示图标名称，值为 `Object` 类型，表示透传至 `icon`。 | N
+image | String / Slot | - | 图片地址 | N

@@ -1,8 +1,17 @@
 import { RadioValue } from '../radio/type';
+import { KeysType } from '../common/common';
 export interface TdRadioGroupProps<T = RadioValue> {
-    align?: {
+    placement?: {
         type: StringConstructor;
         value?: 'left' | 'right';
+    };
+    borderless?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    style?: {
+        type: StringConstructor;
+        value?: string;
     };
     disabled?: {
         type: BooleanConstructor;
@@ -10,7 +19,11 @@ export interface TdRadioGroupProps<T = RadioValue> {
     };
     icon?: {
         type: null;
-        value?: 'fill-circle' | 'stroke-line' | Array<string>;
+        value?: 'circle' | 'line' | 'dot' | Array<string>;
+    };
+    keys?: {
+        type: ObjectConstructor;
+        value?: KeysType;
     };
     name?: {
         type: StringConstructor;

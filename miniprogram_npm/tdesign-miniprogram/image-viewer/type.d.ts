@@ -1,4 +1,8 @@
 export interface TdImageViewerProps {
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
     backgroundColor?: {
         type: StringConstructor;
         optionalTypes: Array<NumberConstructor>;
@@ -17,12 +21,12 @@ export interface TdImageViewerProps {
         value?: boolean;
     };
     deleteBtn?: {
-        type: BooleanConstructor;
-        value: false;
+        type: null;
+        value?: boolean | string | object;
     };
     closeBtn?: {
-        type: BooleanConstructor;
-        value: false;
+        type: null;
+        value?: boolean | string | object;
     };
     visible?: {
         type: BooleanConstructor;

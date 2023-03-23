@@ -18,6 +18,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { isObject, SuperComponent, wxComponent } from '../common/src/index';
 import props from './props';
 import config from '../common/config';
+import { isOverSize } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-upload`;
 let Upload = class Upload extends SuperComponent {
@@ -34,12 +35,6 @@ let Upload = class Upload extends SuperComponent {
             proofs: [],
             customFiles: [],
             customLimit: 0,
-            config: {},
-            files: [],
-            max: 0,
-            sizeLimit: 0,
-            requestMethod: null,
-            gridItemStyle: '',
             column: 4,
         };
         this.properties = props;
@@ -60,7 +55,39 @@ let Upload = class Upload extends SuperComponent {
                 this.updateGrid();
             },
         };
+        this.lifetimes = {
+            ready() {
+                this.handleLimit(this.data.customFiles, this.data.max);
+                this.updateGrid();
+            },
+        };
         this.methods = {
+            uploadFiles(files) {
+                return new Promise((resolve) => {
+                    const task = this.data.requestMethod(files);
+                    if (task instanceof Promise) {
+                        return task;
+                    }
+                    resolve({});
+                });
+            },
+            startUpload(files) {
+                if (typeof this.data.requestMethod === 'function') {
+                    return this.uploadFiles(files)
+                        .then(() => {
+                        files.forEach((file) => {
+                            file.percent = 100;
+                        });
+                        this.triggerSuccessEvent(files);
+                    })
+                        .catch((err) => {
+                        this.triggerFailEvent(err);
+                    });
+                }
+                this.triggerSuccessEvent(files);
+                this.handleLimit(this.data.customFiles, this.data.max);
+                return Promise.resolve();
+            },
             onAddTap() {
                 const { mediaType, source } = this.properties;
                 if (source === 'media') {
@@ -71,13 +98,17 @@ let Upload = class Upload extends SuperComponent {
                 }
             },
             chooseMedia(mediaType) {
-                const { config, sizeLimit, max } = this.data;
-                wx.chooseMedia(Object.assign(Object.assign({ count: max === 0 ? 9 : max, mediaType }, config), { success: (res) => {
+                const { config, sizeLimit, customLimit } = this.data;
+                wx.chooseMedia(Object.assign(Object.assign({ count: customLimit, mediaType }, config), { success: (res) => {
                         const files = [];
                         res.tempFiles.forEach((temp) => {
                             const { size, fileType, tempFilePath, width, height, duration, thumbTempFilePath } = temp, res = __rest(temp, ["size", "fileType", "tempFilePath", "width", "height", "duration", "thumbTempFilePath"]);
-                            if (sizeLimit && size > sizeLimit) {
-                                wx.showToast({ icon: 'none', title: `${fileType === 'image' ? '图片' : '视频'}大小超过限制` });
+                            if (isOverSize(size, sizeLimit)) {
+                                let title = `${fileType === 'image' ? '图片' : '视频'}大小超过限制`;
+                                if (typeof sizeLimit !== 'number') {
+                                    title = sizeLimit.message.replace('{sizeLimit}', sizeLimit === null || sizeLimit === void 0 ? void 0 : sizeLimit.size);
+                                }
+                                wx.showToast({ icon: 'none', title });
                                 return;
                             }
                             const name = this.getRandFileName(tempFilePath);
@@ -96,8 +127,12 @@ let Upload = class Upload extends SuperComponent {
                         const files = [];
                         res.tempFiles.forEach((temp) => {
                             const { size, type: fileType, path: tempFilePath } = temp, res = __rest(temp, ["size", "type", "path"]);
-                            if (sizeLimit && size > sizeLimit) {
-                                wx.showToast({ icon: 'none', title: `${fileType === 'image' ? '图片' : '视频'}大小超过限制` });
+                            if (isOverSize(size, sizeLimit)) {
+                                let title = `${fileType === 'image' ? '图片' : '视频'}大小超过限制`;
+                                if (typeof sizeLimit !== 'number') {
+                                    title = sizeLimit.message.replace('{sizeLimit}', sizeLimit === null || sizeLimit === void 0 ? void 0 : sizeLimit.size);
+                                }
+                                wx.showToast({ icon: 'none', title });
                                 return;
                             }
                             const name = this.getRandFileName(tempFilePath);
@@ -118,15 +153,12 @@ let Upload = class Upload extends SuperComponent {
     }
     onProofTap(e) {
         var _a;
+        this.onFileClick(e);
         const { index } = e.currentTarget.dataset;
         wx.previewImage({
             urls: this.data.customFiles.filter((file) => file.percent !== -1).map((file) => file.url),
             current: (_a = this.data.customFiles[index]) === null || _a === void 0 ? void 0 : _a.url,
         });
-    }
-    ready() {
-        this.handleLimit(this.data.customFiles, this.data.max);
-        this.updateGrid();
     }
     handleLimit(customFiles, max) {
         while (max !== 0 && customFiles.length - max > 0) {
@@ -143,32 +175,6 @@ let Upload = class Upload extends SuperComponent {
             proofs,
             customLimit: max === 0 ? Number.MAX_SAFE_INTEGER : max - customFiles.length,
         });
-    }
-    uploadFiles(files) {
-        return new Promise((resolve) => {
-            const task = this.data.requestMethod(files);
-            if (task instanceof Promise) {
-                return task;
-            }
-            resolve({});
-        });
-    }
-    startUpload(files) {
-        if (typeof this.data.requestMethod === 'function') {
-            return this.uploadFiles(files)
-                .then(() => {
-                files.forEach((file) => {
-                    file.percent = 100;
-                });
-                this.triggerSuccessEvent(files);
-            })
-                .catch((err) => {
-                this.triggerFailEvent(err);
-            });
-        }
-        this.triggerSuccessEvent(files);
-        this.handleLimit(this.data.customFiles, this.data.max);
-        return Promise.resolve();
     }
     triggerSuccessEvent(files) {
         this._trigger('success', { files: [...this.data.customFiles, ...files] });

@@ -1,7 +1,11 @@
 const props = {
-    align: {
+    placement: {
         type: String,
         value: 'left',
+    },
+    borderless: {
+        type: Boolean,
+        value: false,
     },
     disabled: {
         type: Boolean,
@@ -9,7 +13,10 @@ const props = {
     },
     icon: {
         type: null,
-        value: 'fill-circle',
+        value: 'circle',
+    },
+    keys: {
+        type: Object,
     },
     name: {
         type: String,

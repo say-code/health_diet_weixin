@@ -14,13 +14,21 @@ export default class Input extends SuperComponent {
     lifetimes: {
         ready(): void;
     };
+    observers: {
+        prefixIcon(v: any): void;
+        suffixIcon(v: any): void;
+        clearable(v: any): void;
+    };
     methods: {
         updateValue(value: any): void;
         onInput(e: any): void;
         onFocus(e: any): void;
         onBlur(e: any): void;
         onConfirm(e: any): void;
+        onSuffixClick(): void;
+        onSuffixIconClick(): void;
         clearInput(e: any): void;
         onKeyboardHeightChange(e: any): void;
+        onNickNameReview(e: any): void;
     };
 }

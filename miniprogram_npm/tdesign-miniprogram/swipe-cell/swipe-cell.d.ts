@@ -1,19 +1,19 @@
 import { SuperComponent } from '../common/src/index';
 export default class SwiperCell extends SuperComponent {
-    behaviors: string[];
     externalClasses: string[];
     options: {
         multipleSlots: boolean;
     };
     properties: import("./type").TdSwipeCellProps;
     data: {
+        prefix: string;
         wrapperStyle: string;
         closed: boolean;
-        opened: boolean;
         classPrefix: string;
     };
     attached(): void;
-    setSwipeWidth(): Promise<void>;
+    ready(): void;
+    setSwipeWidth(): void;
     detached(): void;
     open(): void;
     close(): void;

@@ -7,18 +7,18 @@ const props = {
         value: 'horizontal',
     },
     cancelBtn: {
-        type: String,
-        optionalTypes: [Object],
-        value: '',
+        type: null,
+    },
+    closeBtn: {
+        type: null,
+        value: false,
     },
     closeOnOverlayClick: {
         type: Boolean,
-        value: true,
+        value: undefined,
     },
     confirmBtn: {
         type: null,
-        optionalTypes: [Object],
-        value: '',
     },
     content: {
         type: String,
@@ -43,7 +43,6 @@ const props = {
     },
     visible: {
         type: Boolean,
-        value: false,
     },
     zIndex: {
         type: Number,

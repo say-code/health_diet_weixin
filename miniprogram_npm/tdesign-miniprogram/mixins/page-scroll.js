@@ -1,7 +1,4 @@
-const getCurrentPage = function () {
-    const pages = getCurrentPages();
-    return pages[pages.length - 1];
-};
+import { getCurrentPage } from '../common/utils';
 const onPageScroll = function (event) {
     const page = getCurrentPage();
     if (!page)
@@ -13,14 +10,13 @@ const onPageScroll = function (event) {
         }
     });
 };
-export const pageScrollMixin = (scroller) => {
-    let bindScroller = scroller;
+export default (scroller) => {
     return Behavior({
         attached() {
             const page = getCurrentPage();
             if (!page)
                 return;
-            bindScroller = scroller.bind(this);
+            const bindScroller = scroller.bind(this);
             if (Array.isArray(page.pageScroller)) {
                 page.pageScroller.push(bindScroller);
             }
@@ -37,14 +33,5 @@ export const pageScrollMixin = (scroller) => {
                 return;
             page.pageScroller = ((_a = page.pageScroller) === null || _a === void 0 ? void 0 : _a.filter((item) => item !== scroller)) || [];
         },
-    });
-};
-export const getRect = function (context, selector) {
-    return new Promise((resolve) => {
-        wx.createSelectorQuery()
-            .in(context)
-            .select(selector)
-            .boundingClientRect()
-            .exec((rect = []) => resolve(rect[0]));
     });
 };

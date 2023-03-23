@@ -11,13 +11,9 @@ export default class Popup extends SuperComponent {
     data: {
         prefix: string;
         classPrefix: string;
-        className: string;
-    };
-    lifetimes: {
-        attached(): void;
     };
     methods: {
-        setClass(): void;
+        onStopPropagation(): void;
         handleOverlayClick(): void;
         handleClose(): void;
     };

@@ -7,14 +7,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
-import { getRect } from '../common/utils';
+import { getRect, unitConvert, calcIcon, isObject } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-message`;
 const SHOW_DURATION = 500;
+const THEME_ICON = {
+    info: 'info-circle-filled',
+    success: 'check-circle-filled',
+    warning: 'info-circle-filled',
+    error: 'error-circle-filled',
+};
 let Message = class Message extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = ['t-class', 't-class-content', 't-class-icon', 't-class-action', 't-class-close-btn'];
+        this.externalClasses = [
+            `${prefix}-class`,
+            `${prefix}-class-content`,
+            `${prefix}-class-icon`,
+            `${prefix}-class-link`,
+            `${prefix}-class-close-btn`,
+        ];
         this.options = {
             styleIsolation: 'apply-shared',
             multipleSlots: true,
@@ -23,12 +35,10 @@ let Message = class Message extends SuperComponent {
         this.data = {
             prefix,
             classPrefix: name,
-            visible: false,
             loop: -1,
             animation: [],
             showAnimation: [],
-            iconName: '',
-            wrapTop: -92,
+            wrapTop: -999,
         };
         this.observers = {
             marquee(val) {
@@ -42,6 +52,20 @@ let Message = class Message extends SuperComponent {
                     });
                 }
             },
+            'icon, theme'(icon, theme) {
+                this.setData({
+                    _icon: calcIcon(icon, THEME_ICON[theme]),
+                });
+            },
+            link(v) {
+                const _link = isObject(v) ? Object.assign({}, v) : { content: v };
+                this.setData({ _link });
+            },
+            closeBtn(v) {
+                this.setData({
+                    _closeBtn: calcIcon(v, 'close'),
+                });
+            },
         };
         this.closeTimeoutContext = 0;
         this.nextAnimationContext = 0;
@@ -49,16 +73,9 @@ let Message = class Message extends SuperComponent {
             duration: 0,
             timingFunction: 'linear',
         });
-        this.showAnimation = wx.createAnimation({ duration: SHOW_DURATION, timingFunction: 'ease' }).translateY(0).step().export();
-        this.hideAnimation = wx
-            .createAnimation({ duration: SHOW_DURATION, timingFunction: 'ease' })
-            .translateY(this.data.wrapTop)
-            .step()
-            .export();
     }
     ready() {
         this.memoInitalData();
-        this.setIcon();
     }
     memoInitalData() {
         this.initalData = Object.assign(Object.assign({}, this.properties), this.data);
@@ -68,30 +85,6 @@ let Message = class Message extends SuperComponent {
     }
     detached() {
         this.clearMessageAnimation();
-    }
-    setIcon(icon = this.properties.icon) {
-        if (!icon) {
-            this.setData({ iconName: '' });
-            return;
-        }
-        if (typeof icon === 'string') {
-            this.setData({
-                iconName: `${icon}`,
-            });
-            return;
-        }
-        if (icon) {
-            let nextValue = 'notification';
-            const { theme } = this.properties;
-            const themeMessage = {
-                info: 'error-circle',
-                success: 'check-circle',
-                warning: 'error-circle',
-                error: 'error-circle',
-            };
-            nextValue = themeMessage[theme];
-            this.setData({ iconName: nextValue });
-        }
     }
     checkAnimation() {
         if (!this.properties.marquee) {
@@ -134,27 +127,38 @@ let Message = class Message extends SuperComponent {
         this.nextAnimationContext = 0;
     }
     show() {
-        const { duration, icon, marquee } = this.properties;
+        const { duration, marquee, offset } = this.properties;
         this.setData({ visible: true, loop: marquee.loop });
         this.reset();
-        this.setIcon(icon);
         this.checkAnimation();
         if (duration && duration > 0) {
             this.closeTimeoutContext = setTimeout(() => {
                 this.hide();
-                this.triggerEvent('durationEnd', { self: this });
+                this.triggerEvent('duration-end', { self: this });
             }, duration);
         }
         const wrapID = `#${name}`;
         getRect(this, wrapID).then((wrapRect) => {
             this.setData({ wrapTop: -wrapRect.height }, () => {
-                this.setData({ showAnimation: this.showAnimation });
+                this.setData({
+                    showAnimation: wx
+                        .createAnimation({ duration: SHOW_DURATION, timingFunction: 'ease' })
+                        .translateY(wrapRect.height + unitConvert(offset[0]))
+                        .step()
+                        .export(),
+                });
             });
         });
     }
     hide() {
         this.reset();
-        this.setData({ showAnimation: this.hideAnimation });
+        this.setData({
+            showAnimation: wx
+                .createAnimation({ duration: SHOW_DURATION, timingFunction: 'ease' })
+                .translateY(this.data.wrapTop)
+                .step()
+                .export(),
+        });
         setTimeout(() => {
             this.setData({ visible: false, animation: [] });
         }, SHOW_DURATION);
@@ -168,10 +172,10 @@ let Message = class Message extends SuperComponent {
     }
     handleClose() {
         this.hide();
-        this.triggerEvent('closeBtnClick');
+        this.triggerEvent('close-btn-click');
     }
-    handleBtnClick() {
-        this.triggerEvent('actionBtnClick', { self: this });
+    handleLinkClick() {
+        this.triggerEvent('link-click');
     }
 };
 Message = __decorate([

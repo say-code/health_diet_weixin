@@ -13,6 +13,10 @@ export default class Loading extends SuperComponent {
         multipleSlots: boolean;
     };
     properties: {
+        style?: {
+            type: StringConstructor;
+            value?: string;
+        };
         delay?: {
             type: NumberConstructor;
             value?: number;

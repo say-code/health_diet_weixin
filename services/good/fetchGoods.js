@@ -28,7 +28,8 @@ async function mockFetchGoodsList(pageIndex = 1, pageSize = 20, ins = 1) {
       title: item.name,
       price: item.price,
       business: item.businessName,
-      description: item.description
+      description: item.description,
+      businessId: item.businessId
     };
   });
   console.log(goods);
