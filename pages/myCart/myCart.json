@@ -7,5 +7,6 @@
     "t-stepper": "tdesign-miniprogram/stepper/stepper",
     "t-divider": "tdesign-miniprogram/divider/divider",
     "t-button": "tdesign-miniprogram/button/button"
-  }
+  },
+  "enablePullDownRefresh": true
 }

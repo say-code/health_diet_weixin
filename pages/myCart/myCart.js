@@ -87,5 +87,10 @@ Page({
   switchToCart(e) {
     req.remove("/shoppingCart/clean");
     this.init();
+  },
+
+  onPullDownRefresh: function () {
+    this.init();
+    wx.stopPullDownRefresh();
   }
 })
