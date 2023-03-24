@@ -43,7 +43,9 @@ Page({
         amount: this.data.price,
         businessId: this.data.businessId
       }
-    })
+    }).then(
+      wx.navigateBack()
+    )
   },
 
   /**

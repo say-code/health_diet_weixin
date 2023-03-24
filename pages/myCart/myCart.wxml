@@ -1,0 +1,23 @@
+<!--pages/myCart/myCart.wxml-->
+<view>
+
+  <view wx:for="{{dishList}}" wx:key="index">
+    <view class="cells" data-id="{{item.dishId}}" bindtap="dishOnClick">
+      <t-cell title="{{item.name}}" description="{{item.dishFlavor?item.dishFlavor : '暂未选择口味'}}" align="top" image="{{image.image}}" hover bordered="{{false}}" />
+      <view class="stepper-example">
+        <t-stepper value="{{item.number}}" theme="filled" data-index="{{index}}" bind:change="handleChange" />
+      </view>
+    </view>
+    <t-divider />
+  </view>
+  <view>
+    <view class="flow-foot">
+      <view class="flow-foot-text">
+        <p class="flow-foot-text-price">￥{{money ? money:0}}</p>
+        <p class="flow-foot-text-warm">另需配送费0元</p>
+      </view>
+      <t-button theme="primary" class="buy-button" bindtap="switchToCart">购买</t-button>
+    </view>
+
+  </view>
+</view>

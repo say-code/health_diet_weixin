@@ -58,6 +58,10 @@ Page({
 
     let businessId = event.businessId
     this.refresh(businessId)
+    this.init()
+  },
+  onShow() {
+    this.init()
   },
 
   async refresh(businessId) {
@@ -107,7 +111,29 @@ Page({
     wx.switchTab({
       url: '/pages/cart/index',
     })
+  },
+
+  init() {
+    req.get("/shoppingCart/list").then(
+      (res) => {
+        let dataValue = res.data;
+        this.setData({
+          dishList: dataValue
+        });
+        this.calcMoney();
+      }
+    )
+  },
+  calcMoney() {
+    let money = 0;
+    for (let i = 1; i < this.data.dishList.length; i++) {
+      money += this.data.dishList[i].number * this.data.dishList[i].amount;
+    }
+    this.setData({
+      money: money
+    })
   }
+
 
 });
 

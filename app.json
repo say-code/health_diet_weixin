@@ -31,7 +31,8 @@
     "pages/order/invoice/index",
     "pages/usercenter/name-edit/index",
     "pages/business/business",
-    "pages/goods/myGoods/myGoods"
+    "pages/goods/myGoods/myGoods",
+    "pages/myCart/myCart"
   ],
   "tabBar": {
     "custom": true,
@@ -49,7 +50,7 @@
         "text": "分类"
       },
       {
-        "pagePath": "pages/cart/index",
+        "pagePath": "pages/myCart/myCart",
         "text": "购物车"
       },
       {

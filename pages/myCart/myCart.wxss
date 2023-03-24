@@ -1,0 +1,49 @@
+/* pages/myCart/myCart.wxss */
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.stepper-example {
+  /* padding: 32rpx;
+  background-color: #fff; */
+  margin-top: 85rpx;
+}
+
+.cells {
+  display: flex;
+
+}
+
+.flow-foot {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15rpx 55rpx;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 180rpx;
+
+}
+
+.flow-foot-text {
+  text-align: left;
+  width: 300rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.flow-foot-text-price {
+  font-size: large;
+  font-weight: 600;
+}
+
+.buy-button {
+  margin: 0rpx;
+  width: 180rpx;
+  border-radius: 45rpx;
+
+}
