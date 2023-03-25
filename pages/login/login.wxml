@@ -1,6 +1,7 @@
 <!--pages/logIn/logIn.wxml-->
 <view class="login-container">
-  <image class="logo" src="/resource/images/logo.svg" mode="aspectFill" />
+
+  <image class="logo" src="/images/logo.jpg" mode="aspectFill" />
   <view class="container-item">
     <view class="item-title">用户名</view>
     <input class="login-input" placeholder="请输入你的邮箱" model:value="{{phone}}" />

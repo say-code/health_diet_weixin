@@ -37,7 +37,7 @@ function mockFetchHome() {
         //   key: 6,
         // },
       ],
-      activityImg: `${cdnBase}/activity/banner.png`,
+      activityImg: [`${cdnBase}/activity/banner.png`],
     };
   });
 }

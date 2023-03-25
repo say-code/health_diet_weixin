@@ -1,5 +1,6 @@
 // pages/myCart/myCart.js
 const req = require('../../utils/request');
+const app = getApp()
 Page({
 
   /**
@@ -16,7 +17,8 @@ Page({
   },
 
   onShow() {
-    console.log(1)
+    this.getTabBar().init();
+    // console.log(1)
     this.init()
   },
 
@@ -24,6 +26,9 @@ Page({
     req.get("/shoppingCart/list").then(
       (res) => {
         let dataValue = res.data;
+        for (let i = 0; i < dataValue.length; i++) {
+          dataValue[i].image = app.globalData.apiHost + "//common/download?name=" + dataValue[i].image
+        }
         this.setData({
           dishList: dataValue
         });

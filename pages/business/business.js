@@ -11,26 +11,6 @@ Page({
     sideBarIndex: 0,
     scrollTop: 0,
     categories: [
-      {
-        label: '健康',
-        title: '健康',
-        badgeProps: {},
-        items: [],
-      },
-      {
-        label: '三高',
-        title: '三高',
-        badgeProps: {
-          // dot: true,
-        },
-        items: [],
-      },
-      {
-        label: '减脂',
-        title: '减脂',
-        badgeProps: {},
-        items: [],
-      },
       //   {
       //     label: '选项四',
       //     title: '标题四',
@@ -65,7 +45,7 @@ Page({
   },
 
   async refresh(businessId) {
-    await req.get("/business/" + businessId).then(
+    req.get("/business/" + businessId).then(
       (res) => {
         let result = res.data;
         this.setData({
@@ -74,7 +54,27 @@ Page({
         })
       }
     )
-    await req.get("/dish/lists?businessId=" + businessId).then(
+    req.get("/category/list?type=1&businessId=" + businessId).then(
+      (res) => {
+        this.setData({
+          categories: []
+        })
+        let dataValues = res.data
+        for (let i = 0; i < dataValues.length; i++) {
+          this.data.categories.push({
+            label: dataValues[i].name,
+            title: dataValues[i].name,
+            cid: dataValues[i].id,
+            items: []
+          })
+        }
+        console.log("aasd", this.data.categories)
+        this.setData({
+          categories: this.data.categories
+        })
+      }
+    )
+    req.get("/dish/lists?businessId=" + businessId).then(
       (res) => {
         let dataValues = Array.from(res.data);
         for (let i = 0; i < dataValues.length; i++) {
@@ -82,14 +82,16 @@ Page({
           let dataEasy = {
             id: dataValue.id,
             image: dataValue.image,
-            name: dataValue.name
+            name: dataValue.name,
           }
-          switch (dataValue.mealType) {
-            case "1": this.data.categories[0].items.push(dataEasy); break;
-            case "2": this.data.categories[1].items.push(dataEasy); break;
-            case "3": this.data.categories[2].items.push(dataEasy); break;
-
-          }
+          this.data.categories.forEach(
+            (category) => {
+              console.log(category.cid, dataValue.categoryId)
+              if (category.cid == dataValue.categoryId) {
+                category.items.push(dataEasy)
+              }
+            }
+          )
           this.setData({
             categories: this.data.categories
           })
@@ -109,7 +111,7 @@ Page({
 
   switchToCart() {
     wx.switchTab({
-      url: '/pages/cart/index',
+      url: '/pages/myCart/myCart',
     })
   },
 

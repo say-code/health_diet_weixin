@@ -4,7 +4,7 @@
   <t-divider />
   <view class="byTop">
     <p class="tittle">{{tittle}}</p>
-    <p class="price">￥{{price}}</p>
+    <p class="price">￥{{price / 100}}</p>
   </view>
   <t-divider></t-divider>
   <view class="byMiddle">

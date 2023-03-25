@@ -15,20 +15,12 @@ const menuData = [
       url: '',
       type: 'coupon',
     },
-    {
-      title: '积分',
-      tit: '',
-      url: '',
-      type: 'point',
-    },
-  ],
-  [
-    {
-      title: '帮助中心',
-      tit: '',
-      url: '',
-      type: 'help-center',
-    },
+    // {
+    //   title: '积分',
+    //   tit: '',
+    //   url: '',
+    //   type: 'point',
+    // },
     {
       title: '客服热线',
       tit: '',
@@ -36,6 +28,15 @@ const menuData = [
       type: 'service',
       icon: 'service',
     },
+  ],
+  [
+    // {
+    //   title: '帮助中心',
+    //   tit: '',
+    //   url: '',
+    //   type: 'help-center',
+    // },
+
   ],
 ];
 

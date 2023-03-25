@@ -17,17 +17,17 @@ export function getCoupon(id = 0, status = 'default', type = (id % 2) + 1) {
     /** 优惠券类型 */
     type,
     /** 折扣或者满减值 */
-    value: type === 2 ? 5.5 : 1800,
+    value: type === 2 ? 500 : 1000,
     /** 标签 */
     tag: '',
     /** 描述 */
-    desc: parseInt(id) > 0 ? `满${parseInt(id) * 100}元可用` : '无门槛使用',
+    desc: parseInt(id) > 0 ? `满${parseInt(id) * 10}元可用` : '无门槛使用',
     /** 订单底价,满n元 */
     base: 10000 * (parseInt(id) || 0),
     /** 标题 */
-    title: type === 2 ? `生鲜折扣券 - ${id}` : `生鲜满减券 - ${id}`,
+    title: type === 2 ? `康莱优惠红包` : `康莱优惠卷`,
     /** 有效时间限制 */
-    timeLimit: '2019.11.18-2023.12.18',
+    timeLimit: '2023.2.18-2023.12.18',
     /** 货币符号 */
     currency: '¥',
   };

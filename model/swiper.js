@@ -1,10 +1,7 @@
 const images = [
-  'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner1.png',
-  'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner2.png',
-  'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner3.png',
-  'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner4.png',
-  'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner5.png',
-  'https://cdn-we-retail.ym.tencent.com/tsr/home/v2/banner6.png'
+  '/images/homepit1.jpg',
+  '/images/homepit2.jpg',
+  '/images/homepit3.jpg'
 ];
 
 export function genSwiperImageList() {

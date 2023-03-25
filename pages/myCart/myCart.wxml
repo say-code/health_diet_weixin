@@ -13,7 +13,7 @@
   <view>
     <view class="flow-foot">
       <view class="flow-foot-text">
-        <p class="flow-foot-text-price">￥{{money ? money:0}}</p>
+        <p class="flow-foot-text-price">￥{{money ? money/100:0}}</p>
         <p class="flow-foot-text-warm">另需配送费0元</p>
       </view>
       <t-button theme="primary" class="buy-button" bindtap="switchToCart">购买</t-button>

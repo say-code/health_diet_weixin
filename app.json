@@ -2,6 +2,7 @@
   "pages": [
     "pages/login/login",
     "pages/home/home",
+    "pages/myCart/myCart",
     "pages/usercenter/index",
     "pages/usercenter/person-info/index",
     "pages/usercenter/address/list/index",
@@ -31,8 +32,7 @@
     "pages/order/invoice/index",
     "pages/usercenter/name-edit/index",
     "pages/business/business",
-    "pages/goods/myGoods/myGoods",
-    "pages/myCart/myCart"
+    "pages/goods/myGoods/myGoods"
   ],
   "tabBar": {
     "custom": true,
@@ -44,10 +44,6 @@
       {
         "pagePath": "pages/home/home",
         "text": "首页"
-      },
-      {
-        "pagePath": "pages/goods/category/index",
-        "text": "分类"
       },
       {
         "pagePath": "pages/myCart/myCart",

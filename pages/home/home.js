@@ -96,6 +96,9 @@ Page({
       console.log(this.data.ins)
       const nextList = await fetchGoodsList(pageIndex, pageSize, ins)
       // console.log("asf")
+      for (let i = 0; i < nextList.length; i++) {
+        nextList[i].description = nextList[i].description.slice(0, 25)
+      }
       this.setData({
         goodsList: fresh ? nextList : this.data.goodsList.concat(nextList),
         goodsListLoadStatus: 0,

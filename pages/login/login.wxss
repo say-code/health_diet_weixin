@@ -5,10 +5,12 @@
 }
 
 .logo {
-  margin: 50rpx;
+  /* margin: 50rpx; */
   width: 354rpx;
-  height: 80rpx;
+  height: 560rpx;
   align-self: center;
+  box-sizing: border-box;
+
 }
 
 .container-item {

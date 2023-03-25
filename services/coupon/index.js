@@ -41,7 +41,7 @@ function mockFetchCouponDetail(id, status) {
 
       result.detail.desc += '。';
     } else if (result.detail.type === 'discount') {
-      result.detail.desc = `${result.detail.value}折`;
+      result.detail.desc = `${result.detail.value}/100`;
 
       if (result.detail.base) {
         result.detail.desc += `，满${result.detail.base / 100}元可用`;

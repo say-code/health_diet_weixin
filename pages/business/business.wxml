@@ -29,7 +29,7 @@
   <view class="flow-foot">
     <t-icon name="shop" data-name="shop" size="75rpx" />
     <view class="flow-foot-text">
-      <p class="flow-foot-text-price">￥{{money ? money:0}}</p>
+      <p class="flow-foot-text-price">￥{{money ? money/100:0}}</p>
       <p class="flow-foot-text-warm">另需配送费0元</p>
     </view>
 
