@@ -46,6 +46,9 @@ Page({
       req.post("/shoppingCart/sub", { data: this.data.dishList[index] }).then(
         (res) => {
           this.data.dishList[index].number = value
+          if (value === 0) {
+            this.data.dishList.splice(index, 1)
+          }
           this.setData({
             dishList: this.data.dishList
           });

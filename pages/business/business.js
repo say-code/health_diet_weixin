@@ -1,4 +1,5 @@
 const image = 'https://tdesign.gtimg.com/miniprogram/images/example2.png';
+const app = getApp()
 // const items = new Array(12).fill({ name: '标题文字' }, 0, 12);
 const req = require('../../utils/request');
 Page({
@@ -81,7 +82,7 @@ Page({
           let dataValue = dataValues[i];
           let dataEasy = {
             id: dataValue.id,
-            image: dataValue.image,
+            image: app.globalData.apiHost + "//common/download?name=" + dataValue.image,
             name: dataValue.name,
           }
           this.data.categories.forEach(

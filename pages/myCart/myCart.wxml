@@ -3,7 +3,7 @@
 
   <view wx:for="{{dishList}}" wx:key="index">
     <view class="cells" data-id="{{item.dishId}}" bindtap="dishOnClick">
-      <t-cell title="{{item.name}}" description="{{item.dishFlavor?item.dishFlavor : '暂未选择口味'}}" align="top" image="{{image.image}}" hover bordered="{{false}}" />
+      <t-cell title="{{item.name}}" description="{{item.dishFlavor?item.dishFlavor : '暂未选择口味'}}" align="top" image="{{item.image}}" hover bordered="{{false}}" />
       <view class="stepper-example">
         <t-stepper value="{{item.number}}" theme="filled" data-index="{{index}}" bind:change="handleChange" />
       </view>
