@@ -9,7 +9,8 @@ Page({
   data: {
     image: 'https://tdesign.gtimg.com/miniprogram/images/cell1.png',
     dishList: [],
-    money: 0
+    money: 0,
+    cal: 0
   },
 
   onLoad() {
@@ -84,11 +85,14 @@ Page({
 
   calcMoney() {
     let money = 0;
+    let cal = 0;
     for (let i = 1; i < this.data.dishList.length; i++) {
       money += this.data.dishList[i].number * this.data.dishList[i].amount;
+      cal += this.data.dishList[i].number * this.data.dishList[i].cal;
     }
     this.setData({
-      money: money
+      money: money,
+      cal: cal
     })
   },
 

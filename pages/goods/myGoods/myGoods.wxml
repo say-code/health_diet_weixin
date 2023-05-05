@@ -10,7 +10,8 @@
   <view class="byMiddle">
     <p class="tittle">商品详情</p>
     <p class="desc"><span>商品描述：</span>{{desc}}</p>
-    <p class="desc"><span>口味：</span>{{flavor===[]? flavor:'暂无'}}</p>
+    <p class="desc"><span>卡路里：</span>{{cal!==null? cal:'暂无'}}kcal</p>
+    <p class="desc"><span>口味：</span>{{flavor!=[]? flavor:'暂无'}}</p>
   </view>
 
   <view class="flow-foot">

@@ -10,7 +10,8 @@ Page({
     price: 0,
     desc: '暂无',
     flavor: '暂无',
-    img: '/images/food-back.jpg'
+    img: '/images/food-back.jpg',
+    cal: ''
   },
 
   /**
@@ -29,7 +30,8 @@ Page({
           price: result.price,
           desc: result.description,
           flavor: result.flavors,
-          businessId: result.businessId
+          businessId: result.businessId,
+          cal: result.cal
         })
       }
     )
